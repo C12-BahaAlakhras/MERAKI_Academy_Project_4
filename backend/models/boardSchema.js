@@ -12,7 +12,7 @@ const boardSchema = new mongoose.Schema({
   boardProjects: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "Ticket",
+      ref: "Project",
     },
   ],
 

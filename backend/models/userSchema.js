@@ -6,13 +6,10 @@ const userSchema = new mongoose.Schema({
   position: { type: String, required: true },
   email: { type: String, required: true, unique: true },
   password: { type: String, required: true },
-  userProjects: [
-    {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "Project",
-    },
-  ],
-
+  userBoard: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Board",
+  },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
   plan: { type: String, required: true },
   planStartDate: { type: Date, required: true },
