@@ -1,26 +1,26 @@
 const express = require("express");
 const {
-  createNewUserAdmin,
-  createNewUser,
+  register,
   loginUser,
   AddTeamtoBoard,
   allUsersInBoard,
-  allUsersInProject,
-  allUsersInTicket,
   getUsersById,
   removeUserFromBoard,
   removeUserFromProject,
   removeUserFromTicket,
   updateUserById,
+  updateUserFromBoard,
+  updateUserFromProject,
+  updateUserFromTicket,
 } = require("../controllers/userControllers");
 //
 const usersRouter = express.Router();
 
 // ! POST
-// register free plan -> http://localhost:5000/user/register/admin
-usersRouter.post("/register/admin", createNewUserAdmin);
+// // register free plan -> http://localhost:5000/user/register/admin
+// usersRouter.post("/register/admin", registerAdmin);
 // register -> http://localhost:5000/user/register
-usersRouter.post("/register", createNewUser);
+usersRouter.post("/register", register);
 // login -> http://localhost:5000/user/login
 usersRouter.post("/login", loginUser);
 // add user in board -> http://localhost:5000/user/:adminId/addteam

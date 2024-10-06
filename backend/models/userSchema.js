@@ -11,9 +11,9 @@ const userSchema = new mongoose.Schema({
     ref: "Board",
   },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
-  plan: { type: String, required: true },
-  planStartDate: { type: Date, required: true },
-  planExpiryDate: { type: Date, required: true },
+  // plan: { type: String, required: true },
+  // planStartDate: { type: Date, required: true },
+  // planExpiryDate: { type: Date, required: true },
 });
 
 userSchema.pre("save", async function () {
