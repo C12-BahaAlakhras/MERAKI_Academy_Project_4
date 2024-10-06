@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const boardSchema = new mongoose.Schema({
   // boardOwner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 
+  boardName: { type: String, required: true },
+
   boardMembers: [
     {
       type: mongoose.Schema.Types.ObjectId,

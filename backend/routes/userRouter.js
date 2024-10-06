@@ -1,7 +1,10 @@
 const express = require("express");
+const authentication = require("../middleware/authentication");
+const authorization = require("../middleware/authorization");
+
 const {
   register,
-  loginUser,
+  login,
   AddTeamtoBoard,
   allUsersInBoard,
   getUsersById,
@@ -20,9 +23,9 @@ const usersRouter = express.Router();
 // // register free plan -> http://localhost:5000/user/register/admin
 // usersRouter.post("/register/admin", registerAdmin);
 // register -> http://localhost:5000/user/register
-usersRouter.post("/register", register);
+usersRouter.post("/register", authentication, register);
 // login -> http://localhost:5000/user/login
-usersRouter.post("/login", loginUser);
+usersRouter.post("/login", authorization("ADMIN"), login);
 // add user in board -> http://localhost:5000/user/:adminId/addteam
 usersRouter.post("/:adminID/addteam", AddTeamtoBoard);
 //====================================================================================
