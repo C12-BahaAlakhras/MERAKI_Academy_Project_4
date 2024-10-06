@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const boardSchema = new mongoose.Schema({
-  boardOwner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
+  // boardOwner: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
 
   boardMembers: [
     {
