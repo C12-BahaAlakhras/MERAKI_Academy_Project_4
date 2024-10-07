@@ -3,6 +3,7 @@ const jwt = require("jsonwebtoken");
 
 const authentication = (req, res, next) => {
   try {
+    console.log("inside auth", req.headers.authorization)
     if (!req.headers.authorization) {
       return res.status(403).json({
         success: false,

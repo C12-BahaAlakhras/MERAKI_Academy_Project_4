@@ -18,7 +18,7 @@ const boardSchema = new mongoose.Schema({
     },
   ],
 
-  boardCreatedAt: { type: Date, required: true },
+  // boardCreatedAt: { type: Date, required: true },
 });
 
 module.exports = mongoose.model("Board", boardSchema);

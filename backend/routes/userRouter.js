@@ -23,16 +23,26 @@ const usersRouter = express.Router();
 // // register free plan -> http://localhost:5000/user/register/admin
 // usersRouter.post("/register/admin", registerAdmin);
 // register -> http://localhost:5000/user/register
-usersRouter.post("/register", authentication, register);
+usersRouter.post("/register", register);
 // login -> http://localhost:5000/user/login
-usersRouter.post("/login", authorization("ADMIN"), login);
+usersRouter.post("/login", login);
 // add user in board -> http://localhost:5000/user/:adminId/addteam
-usersRouter.post("/:adminID/addteam", AddTeamtoBoard);
+usersRouter.post(
+  "/:adminID/addteam",
+  authentication,
+  authorization("ADMIN"),
+  AddTeamtoBoard
+);
 //====================================================================================
 // ! GET
 
 // get all users based on specific board -> http://localhost:5000/user/:boardID
-usersRouter.get("/:adminID", allUsersInBoard);
+usersRouter.get(
+  "/:adminID",
+  authentication,
+  authorization("ADMIN"),
+  allUsersInBoard
+);
 // get all users based on specific project -> http://localhost:5000/user/:boardID/:projectID
 // usersRouter.get("/:adminID/:projectID", allUsersInProject);
 // get all users based on specific project -> http://localhost:5000/user/:projectID/:ticketId
@@ -66,3 +76,15 @@ usersRouter.put("/:ticketID/:userID", updateUserFromTicket);
 module.exports = usersRouter;
 
 // const date = new Date("1-1-2024")
+
+/*
+
+{
+  "fullName": "baha alakhras",
+  "position": "web dev",
+  "email": "baha@test.com",
+  "password": "baha"
+}
+
+
+*/
