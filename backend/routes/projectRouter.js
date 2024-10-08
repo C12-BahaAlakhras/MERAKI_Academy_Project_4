@@ -1,4 +1,6 @@
 const express = require("express");
+const authentication = require("../middleware/authentication");
+const authorization = require("../middleware/authorization");
 
 const {
   createNewProject,
@@ -14,7 +16,12 @@ const projectsRouter = express.Router();
 // // register free plan -> http://localhost:5000/user/register/admin
 // usersRouter.post("/register/admin", registerAdmin);
 // register -> http://localhost:5000/user/register
-projectsRouter.post("/:userID", createNewProject);
+projectsRouter.post(
+  "/:userID",
+  authentication,
+  authorization("ADMIN"),
+  createNewProject
+);
 projectsRouter.get("/", getAllProjects);
 projectsRouter.get("/:userID", getProjectById);
 projectsRouter.put("/:userID", updateProjectById);

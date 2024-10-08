@@ -1,6 +1,7 @@
 const express = require("express");
 const BoardModel = require("../models/boardSchema");
 const ProjectModel = require("../models/projectSchema");
+const UserModel = require("../models/userSchema");
 
 const createNewProject = async (req, res) => {
   const id = req.params.userID;
@@ -16,10 +17,22 @@ const createNewProject = async (req, res) => {
     });
 
     const saveProject = await newProject.save();
+
+    const targetUser = await UserModel.findById({ _id: id });
+    const boardId = targetUser.userBoard;
+    console.log("targetBoard ====>", boardId);
+    const updateBoard = await BoardModel.findByIdAndUpdate(
+      { _id: boardId },
+      {
+        $push: { boardProjects: saveProject._id },
+      },
+      { new: true }
+    );
+
     res.status(201).json({
       success: true,
       message: `Project created successfully `,
-      result: saveProject,
+      result: (saveProject, updateBoard),
     });
   } catch (err) {
     // server errors
@@ -40,6 +53,11 @@ const createNewProject = async (req, res) => {
 //
 const getAllProjects = async (req, res) => {
   try {
+    
+
+
+
+
   } catch (err) {
     // server errors
     res.status(500).json({
