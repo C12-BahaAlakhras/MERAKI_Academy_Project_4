@@ -48,7 +48,7 @@ usersRouter.get(
 // get all users based on specific project -> http://localhost:5000/user/:projectID/:ticketId
 // usersRouter.get("/:adminID/:projectID/:ticketID", allUsersInTicket);
 // get user by id -> http://localhost:5000/user/:userID
-usersRouter.get("/:userID", getUsersById);
+usersRouter.get("/:userID/user", getUsersById);
 
 // ! Delete
 // remove user by id from board -> http://localhost:5000/user/:userID

@@ -179,7 +179,7 @@ const allUsersInBoard = async (req, res) => {
   const id = req.params.adminID;
   try {
     const boardOwner = await UserModel.findById({ _id: id });
-    console.log("id ======> ", id);
+    // console.log("id ======> ", id);
     const targetBoard = await BoardModel.findById({
       _id: boardOwner.userBoard,
     });
@@ -201,11 +201,86 @@ const allUsersInBoard = async (req, res) => {
 };
 
 //get  user  by id
-const getUsersById = (req, res) => {};
+const getUsersById = async (req, res) => {
+  const id = req.params.userID;
+  try {
+    const user = await UserModel.findById({ _id: id });
+
+    res.status(200).json({
+      success: true,
+      message: `Got user by id successfully`,
+      result: user,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
 
 //! Remove
-//get all user  in specific Board
-const removeUserFromBoard = (req, res) => {};
+//remove user from users and board
+const removeUserFromBoard = async (req, res) => {
+  const adminID = req.params.adminId;
+  const userID = req.params.userID;
+  console.log("userID", userID);
+
+  try {
+    const targetUser = await UserModel.findById(userID);
+    if (!targetUser) {
+      return res.status(404).json({
+        success: false,
+        message: `User not found`,
+      });
+    }
+
+    const userBoardId = targetUser.userBoard;
+    if (!userBoardId) {
+      return res.status(400).json({
+        success: false,
+        message: `User does not belong to any board`,
+      });
+    }
+
+    // Remove the user from the board
+    const updatedBoard = await BoardModel.findByIdAndUpdate(
+      userBoardId,
+      { $pull: { boardMembers: userID } },
+      { new: true }
+    );
+
+    if (!updatedBoard) {
+      return res.status(404).json({
+        success: false,
+        message: `Board not found`,
+      });
+    }
+
+    // delete the user
+    const deletedUser = await UserModel.findByIdAndDelete(userID);
+    if (!deletedUser) {
+      return res.status(404).json({
+        success: false,
+        message: `Failed to delete the user`,
+      });
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `User removed successfully from board and deleted`,
+      user: deletedUser,
+      updatedBoard,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
 const removeUserFromProject = (req, res) => {};
 const removeUserFromTicket = (req, res) => {};
 
