@@ -1,7 +1,7 @@
 const express = require("express");
-const BoardModel = require("../models/boardSchema");
+// const BoardModel = require("../models/boardSchema");
 const ProjectModel = require("../models/projectSchema");
-const UserModel = require("../models/userSchema");
+// const UserModel = require("../models/userSchema");
 const TicketModel = require("../models/ticketSchema");
 
 const createNewTicket = async (req, res) => {
@@ -50,7 +50,7 @@ const createNewTicket = async (req, res) => {
 // get all ticket in the project
 const getAllTickets = async (req, res) => {
   projectID = req.params.projectID;
-  console.log("baha");
+//   console.log("baha");
 
   try {
     // project/:projectID

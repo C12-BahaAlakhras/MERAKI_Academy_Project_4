@@ -8,10 +8,12 @@ const cardSchema = new mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Ticket",
   },
-  cardAssignedTo: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: "User",
-  },
+  cardAssignedTo: [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User",
+    },
+  ],
 
   cardStatus: { type: String },
   cardPriority: { type: String },
@@ -22,8 +24,8 @@ const cardSchema = new mongoose.Schema({
     },
   ],
 
-  cardCreatedAt: { type: Date, required: true },
-  cardDeadLine: { type: Date, required: true },
+  // cardCreatedAt: { type: Date, required: true },
+  // cardDeadLine: { type: Date, required: true },
 });
 
 module.exports = mongoose.model("Card", cardSchema);

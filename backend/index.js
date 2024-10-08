@@ -11,14 +11,15 @@ app.use(express.json());
 const usersRouter = require("./routes/userRouter");
 const rolesRouter = require("./routes/roleRouter");
 const projectsRouter = require("./routes/projectRouter");
-const ticketsRouter = require("./routes/ticketRouter")
+const ticketsRouter = require("./routes/ticketRouter");
+const cardsRouter = require("./routes/cardRouter");
 
 // Routes Middleware
 app.use("/roles", rolesRouter);
 app.use("/users", usersRouter);
 app.use("/project", projectsRouter);
 app.use("/ticket", ticketsRouter);
-
+app.use("/card", cardsRouter);
 
 // Handles any other endpoints [unassigned - endpoints]
 app.use("*", (req, res) => res.status(404).json("NO content at this path"));
