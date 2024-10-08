@@ -11,6 +11,7 @@ const userSchema = new mongoose.Schema({
     ref: "Board",
   },
   role: { type: mongoose.Schema.Types.ObjectId, ref: "Role" },
+  userImage: { type: String },
   // plan: { type: String, required: true },
   // planStartDate: { type: Date, required: true },
   // planExpiryDate: { type: Date, required: true },

@@ -10,7 +10,8 @@ const jwt = require("jsonwebtoken");
 const register = async (req, res) => {
   try {
     const role = "67044464780d7b93570e6235";
-    const { fullName, position, email, password, boardName } = req.body;
+    const { fullName, position, email, password, boardName, userImage } =
+      req.body;
 
     const emailIsExist = await UserModel.findOne({ email });
     console.log("emailIsExist: ===>", emailIsExist);
@@ -39,6 +40,7 @@ const register = async (req, res) => {
       password,
       role,
       userBoard: savedBoard._id,
+      userImage,
     });
 
     const savedUser = await newUser.save();
@@ -281,21 +283,48 @@ const removeUserFromBoard = async (req, res) => {
     });
   }
 };
-const removeUserFromProject = (req, res) => {};
-const removeUserFromTicket = (req, res) => {};
+const removeUserFromProject = (req, res) => {
+  // add it when create ProjectControllers
+};
+const removeUserFromTicket = (req, res) => {
+  // add it when create ticketControllers
+};
 
 //! Put
 //update  user  by id
-const updateUserById = (req, res) => {};
+const updateUserById = async (req, res) => {
+  const userID = req.params.userID;
+  const { fullName, position, userImage } = req.body;
 
-//update  user  in specific Board
-const updateUserFromBoard = (req, res) => {};
+  try {
+    const updatedUser = await UserModel.findByIdAndUpdate(
+      userID,
+      { fullName, position, userImage },
+      { new: true }
+    );
 
-//update  user  in specific projct
-const updateUserFromProject = (req, res) => {};
+    res.status(200).json({
+      success: true,
+      message: `user updated successfully`,
+      user: updatedUser,
+    });
+  } catch (err) {
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
 
-//update  user  in specific ticket
-const updateUserFromTicket = (req, res) => {};
+// //update  user  in specific Board
+// const updateUserFromBoard = (req, res) => {};
+
+// //update  user  in specific projct
+// const updateUserFromProject = (req, res) => {};
+
+// //update  user  in specific ticket
+// const updateUserFromTicket = (req, res) => {};
 
 module.exports = {
   register,
@@ -307,7 +336,7 @@ module.exports = {
   removeUserFromProject,
   removeUserFromTicket,
   updateUserById,
-  updateUserFromBoard,
-  updateUserFromProject,
-  updateUserFromTicket,
+  // updateUserFromBoard,
+  // updateUserFromProject,
+  // updateUserFromTicket,
 };

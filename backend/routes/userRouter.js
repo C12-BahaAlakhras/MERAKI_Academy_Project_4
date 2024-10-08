@@ -12,9 +12,9 @@ const {
   removeUserFromProject,
   removeUserFromTicket,
   updateUserById,
-  updateUserFromBoard,
-  updateUserFromProject,
-  updateUserFromTicket,
+  // updateUserFromBoard,
+  // updateUserFromProject,
+  // updateUserFromTicket,
 } = require("../controllers/userControllers");
 //
 const usersRouter = express.Router();
@@ -64,14 +64,14 @@ usersRouter.delete("/:ticketID/:userID", removeUserFromTicket);
 // update user by id -> http://localhost:5000/user/:userID
 usersRouter.put("/:userID", updateUserById);
 
-// update user by id from board -> http://localhost:5000/user/:userID
-usersRouter.put("/:adminId/:userID", updateUserFromBoard);
+// // update user by id from board -> http://localhost:5000/user/:userID
+// usersRouter.put("/:adminId/:userID", updateUserFromBoard);
 
-// update user by id from project-> http://localhost:5000/user/:userID
-usersRouter.put("/:projectID/:userID", updateUserFromProject);
+// // update user by id from project-> http://localhost:5000/user/:userID
+// usersRouter.put("/:projectID/:userID", updateUserFromProject);
 
-// update user by id from ticket -> http://localhost:5000/user/:userID
-usersRouter.put("/:ticketID/:userID", updateUserFromTicket);
+// // update user by id from ticket -> http://localhost:5000/user/:userID
+// usersRouter.put("/:ticketID/:userID", updateUserFromTicket);
 
 module.exports = usersRouter;
 
