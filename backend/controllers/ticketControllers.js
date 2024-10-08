@@ -77,7 +77,15 @@ const getAllTickets = async (req, res) => {
 
 // get  ticket by id
 const getTicketsById = async (req, res) => {
+  ticketID = req.params.ticketID;
+
   try {
+    const ticket = await TicketModel.findById({ _id: ticketID });
+    res.status(200).json({
+      success: true,
+      message: `get ticket by id success`,
+      result: ticket,
+    });
   } catch (err) {
     // server errors
     res.status(500).json({
@@ -90,7 +98,26 @@ const getTicketsById = async (req, res) => {
 
 // delete  ticket by id
 const deleteTicketsById = async (req, res) => {
+  ticketID = req.params.ticketID;
+
   try {
+    const targetTicket = await TicketModel.findById({ _id: ticketID });
+    const projectID = targetTicket.ticketProject;
+    const updateProject = await ProjectModel.findByIdAndUpdate(
+      { _id: projectID },
+      { $pull: { projectTickets: ticketID } },
+      { new: true }
+    );
+
+    const deletedTicket = await TicketModel.findByIdAndDelete({
+      _id: ticketID,
+    });
+
+    res.status(200).json({
+      success: true,
+      message: `ticket removed successfully from projects and tickets`,
+      result: deletedTicket,
+    });
   } catch (err) {
     // server errors
     res.status(500).json({
@@ -103,7 +130,20 @@ const deleteTicketsById = async (req, res) => {
 
 // update  ticket by id
 const updateTicketsById = async (req, res) => {
+  ticketID = req.params.ticketID;
+  const { ticketTitle, ticketDescription, ticketStatus, ticketPriority } =
+    req.body;
   try {
+    const updateTicket = await TicketModel.findByIdAndUpdate(
+      { _id: ticketID },
+      { ticketTitle, ticketDescription, ticketStatus, ticketPriority },
+      { new: true }
+    );
+    res.status(200).json({
+      success: true,
+      message: `update ticket success`,
+      result: updateTicket,
+    });
   } catch (err) {
     // server errors
     res.status(500).json({
