@@ -23,8 +23,8 @@ const ticketSchema = new mongoose.Schema({
     },
   ],
 
-  ticketCreatedAt: { type: Date, required: true },
-  ticketDeadLine: { type: Date, required: true },
+  // ticketCreatedAt: { type: Date, required: true },
+  // ticketDeadLine: { type: Date, required: true },
 });
 
 module.exports = mongoose.model("Ticket", ticketSchema);

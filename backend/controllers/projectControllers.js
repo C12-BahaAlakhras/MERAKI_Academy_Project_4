@@ -112,7 +112,7 @@ const getProjectById = async (req, res) => {
 
 //
 
-//update  spacific project by id
+//update  spacific project by his id
 const updateProjectById = async (req, res) => {
   projectID = req.params.projectID;
   const { projectName, projectDescription, projectPriority } = req.body;
@@ -142,7 +142,7 @@ const updateProjectById = async (req, res) => {
 
 //
 
-//
+// delete spacific project by his id
 const deleteProjectById = async (req, res) => {
   projectID = req.params.projectID;
 
