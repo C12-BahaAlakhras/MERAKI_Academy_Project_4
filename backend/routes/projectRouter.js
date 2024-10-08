@@ -22,9 +22,14 @@ projectsRouter.post(
   authorization("ADMIN"),
   createNewProject
 );
-projectsRouter.get("/", getAllProjects);
-projectsRouter.get("/:userID", getProjectById);
-projectsRouter.put("/:userID", updateProjectById);
-projectsRouter.delete("/:userID", deleteProjectById);
+projectsRouter.get("/all/:userID", getAllProjects);
+projectsRouter.get("/:userID/:projectID", getProjectById);
+projectsRouter.put(
+  "/:projectID",
+  authentication,
+  authorization("ADMIN"),
+  updateProjectById
+);
+projectsRouter.delete("/:projectID", deleteProjectById);
 
 module.exports = projectsRouter;
