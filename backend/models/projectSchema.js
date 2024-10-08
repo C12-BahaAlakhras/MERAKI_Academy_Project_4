@@ -18,8 +18,8 @@ const projectSchema = new mongoose.Schema({
     },
   ],
   projectPriority: { type: String },
-  projectCreatedAt: { type: Date, required: true },
-  projectDeadLine: { type: Date, required: true },
+  // projectCreatedAt: { type: Date, required: true },
+  // projectDeadLine: { type: Date, required: true },
 });
 
 module.exports = mongoose.model("Project", projectSchema);

@@ -1,6 +1,12 @@
 const express = require("express");
 
-const { create } = require("../controllers/projectControllers");
+const {
+  createNewProject,
+  getAllProjects,
+  getProjectById,
+  updateProjectById,
+  deleteProjectById,
+} = require("../controllers/projectControllers");
 //
 const projectsRouter = express.Router();
 
@@ -8,6 +14,10 @@ const projectsRouter = express.Router();
 // // register free plan -> http://localhost:5000/user/register/admin
 // usersRouter.post("/register/admin", registerAdmin);
 // register -> http://localhost:5000/user/register
-projectsRouter.post("/", create);
+projectsRouter.post("/:userID", createNewProject);
+projectsRouter.get("/", getAllProjects);
+projectsRouter.get("/:userID", getProjectById);
+projectsRouter.put("/:userID", updateProjectById);
+projectsRouter.delete("/:userID", deleteProjectById);
 
 module.exports = projectsRouter;

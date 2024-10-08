@@ -14,7 +14,7 @@ const register = async (req, res) => {
       req.body;
 
     const emailIsExist = await UserModel.findOne({ email });
-    console.log("emailIsExist: ===>", emailIsExist);
+    // console.log("emailIsExist: ===>", emailIsExist);
     if (emailIsExist) {
       return res.status(409).json({
         success: false,
