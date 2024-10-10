@@ -9,8 +9,8 @@ const {
   allUsersInBoard,
   getUsersById,
   removeUserFromBoard,
-  removeUserFromProject,
-  removeUserFromTicket,
+  // removeUserFromProject,
+  // removeUserFromTicket,
   updateUserById,
   // updateUserFromBoard,
   // updateUserFromProject,
@@ -54,11 +54,11 @@ usersRouter.get("/:userID/user", getUsersById);
 // remove user by id from board -> http://localhost:5000/user/:userID
 usersRouter.delete("/:adminId/:userID", removeUserFromBoard);
 
-// remove user by id from project-> http://localhost:5000/user/:userID
-usersRouter.delete("/:projectID/:userID", removeUserFromProject);
+// // remove user by id from project-> http://localhost:5000/user/:userID
+// usersRouter.delete("/:projectID/:userID", removeUserFromProject);
 
-// remove user by id from ticket -> http://localhost:5000/user/:userID
-usersRouter.delete("/:ticketID/:userID", removeUserFromTicket);
+// // remove user by id from ticket -> http://localhost:5000/user/:userID
+// usersRouter.delete("/:ticketID/:userID", removeUserFromTicket);
 
 // ! Put
 // update user by id -> http://localhost:5000/user/:userID

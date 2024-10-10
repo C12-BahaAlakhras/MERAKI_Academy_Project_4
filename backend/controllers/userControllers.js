@@ -283,12 +283,12 @@ const removeUserFromBoard = async (req, res) => {
     });
   }
 };
-const removeUserFromProject = (req, res) => {
-  // add it when create ProjectControllers
-};
-const removeUserFromTicket = (req, res) => {
-  // add it when create ticketControllers
-};
+// const removeUserFromProject = (req, res) => {
+//   // add it when create ProjectControllers
+// };
+// const removeUserFromTicket = (req, res) => {
+//   // add it when create ticketControllers
+// };
 
 //! Put
 //update  user  by id
@@ -333,8 +333,8 @@ module.exports = {
   allUsersInBoard,
   getUsersById,
   removeUserFromBoard,
-  removeUserFromProject,
-  removeUserFromTicket,
+  // removeUserFromProject,
+  // removeUserFromTicket,
   updateUserById,
   // updateUserFromBoard,
   // updateUserFromProject,

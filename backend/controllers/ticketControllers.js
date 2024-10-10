@@ -50,7 +50,7 @@ const createNewTicket = async (req, res) => {
 // get all ticket in the project
 const getAllTickets = async (req, res) => {
   projectID = req.params.projectID;
-//   console.log("baha");
+  //   console.log("baha");
 
   try {
     // project/:projectID
@@ -153,10 +153,112 @@ const updateTicketsById = async (req, res) => {
     });
   }
 };
+
+//==========================>
+// add/remove/get team to Ticket
+
+// get Team OF Ticket
+const getTeamOFTicket = async (req, res) => {
+  // console.log("baha");
+  ticketID = req.params.ticketID;
+
+  try {
+    const targetTicket = await TicketModel.findById({
+      _id: ticketID,
+    }).populate("assigneeTo");
+    // console.log("targetProject", targetProject);
+    const arryOfTeam = targetTicket.assigneeTo;
+
+    res.status(200).json({
+      success: true,
+      message: `Get Team Of ticket successfully`,
+      team: arryOfTeam,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
+
+// add Team to Ticket
+const addUserToTicket = async (req, res) => {
+  ticketID = req.params.ticketID;
+  addUserID = req.params.addUserID;
+
+  try {
+    const targetTicket = await TicketModel.findById({
+      _id: ticketID,
+    });
+    const idProject = targetTicket.ticketProject;
+    const targetProject = await ProjectModel.findById({ _id: idProject });
+    const arryOfTeam = targetProject.projectMembers;
+    const userExistInProject = arryOfTeam.find((user) => {
+      return user._id.toString() === addUserID;
+    });
+
+    if (userExistInProject) {
+      // add condition that if user exist tell him that
+
+      const addUser = await TicketModel.findByIdAndUpdate(
+        { _id: ticketID },
+        { $push: { assigneeTo: addUserID } },
+        { new: true }
+      );
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `add user to ticket successfully`,
+      user: userExistInProject,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
+
+// delete Team from Ticket
+const deleteUserFromTicket = async (req, res) => {
+  ticketID = req.params.ticketID;
+  userID = req.params.userID;
+
+  try {
+    const removeUser = await TicketModel.findByIdAndUpdate(
+      { _id: ticketID },
+      { $pull: { assigneeTo: userID } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: `delete user from Project successfully`,
+      team: removeUser,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
+
 module.exports = {
   createNewTicket,
   getAllTickets,
   getTicketsById,
   deleteTicketsById,
   updateTicketsById,
+  getTeamOFTicket,
+  addUserToTicket,
+  deleteUserFromTicket,
 };

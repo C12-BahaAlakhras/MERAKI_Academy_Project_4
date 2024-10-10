@@ -8,6 +8,9 @@ const {
   getTicketsById,
   deleteTicketsById,
   updateTicketsById,
+  getTeamOFTicket,
+  addUserToTicket,
+  deleteUserFromTicket,
 } = require("../controllers/ticketControllers");
 //
 const ticketsRouter = express.Router();
@@ -36,10 +39,12 @@ ticketsRouter.delete("/:ticketID", deleteTicketsById);
 // update Specific ticket
 ticketsRouter.put("/:ticketID", updateTicketsById);
 
-// POST	/projects/:projectId/	/tickets	create tickets
-// GET	/projects/:projectId/	/tickets	Get all tickets for a specific project
-// GET	/tickets	/:ticketId	Get ticket by ID
-// DELETE 	/tickets	/:ticketId	Delete a specific ticket
-// PUT	/tickets	/:ticketId	Update a specific ticket
+// add/remove/get team to ticket
+// get
+ticketsRouter.get("/:ticketID", getTeamOFTicket);
+// add
+ticketsRouter.post("/team/:ticketID/:addUserID", addUserToTicket);
+//delete
+ticketsRouter.delete("/team/:ticketID/:userID", deleteUserFromTicket);
 
 module.exports = ticketsRouter;

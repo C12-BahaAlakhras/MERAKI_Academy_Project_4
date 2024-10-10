@@ -8,8 +8,15 @@ const {
   getProjectById,
   updateProjectById,
   deleteProjectById,
+  getTeamOFProject,
+  addUserToProject,
+  deleteUserFromProject,
 } = require("../controllers/projectControllers");
 //
+
+
+
+
 const projectsRouter = express.Router();
 
 // ! POST
@@ -41,5 +48,17 @@ projectsRouter.delete(
   authorization("ADMIN"),
   deleteProjectById
 );
+
+
+// add/remove/get team to project
+// get 
+projectsRouter.get("/:projectID", getTeamOFProject);
+// add 
+projectsRouter.post("/team/:projectID/:addUserID", addUserToProject);
+//delete
+projectsRouter.delete("/team/:projectID/:userID", deleteUserFromProject);
+
+
+
 
 module.exports = projectsRouter;

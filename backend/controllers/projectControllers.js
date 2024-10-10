@@ -148,7 +148,7 @@ const deleteProjectById = async (req, res) => {
 
   try {
     const deleteProject = await ProjectModel.findById({ _id: projectID });
-    console.log("deleteProject", deleteProject);
+    // console.log("deleteProject", deleteProject);
     const userId = deleteProject.projectOwner;
     const targetUser = await UserModel.findById({ _id: userId });
     const boardID = targetUser.userBoard;
@@ -178,10 +178,125 @@ const deleteProjectById = async (req, res) => {
   }
 };
 
+//==========================>
+// add/remove/get team to project
+
+// get Team OF Project
+const getTeamOFProject = async (req, res) => {
+  console.log("baha");
+  projectID = req.params.projectID;
+
+  try {
+    const targetProject = await ProjectModel.findById({
+      _id: projectID,
+    }).populate("projectMembers");
+    console.log("targetProject", targetProject);
+    const arryOfTeam = targetProject.projectMembers;
+
+    res.status(200).json({
+      success: true,
+      message: `Get Team Of Project successfully`,
+      team: arryOfTeam,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
+
+// add Team to Project
+const addUserToProject = async (req, res) => {
+  projectID = req.params.projectID;
+  addUserID = req.params.addUserID;
+
+  try {
+    const targetProject = await ProjectModel.findById({
+      _id: projectID,
+    });
+    const userOwner = targetProject.projectOwner;
+    const adminboard = await UserModel.findById({
+      _id: userOwner,
+    });
+    const idBoard = adminboard.userBoard;
+
+    const targetBoard = await BoardModel.findById({
+      _id: idBoard,
+    }).populate("boardMembers");
+    const arryOfTeam = targetBoard.boardMembers;
+    console.log("arryOfTeam", arryOfTeam);
+    console.log("addUserID", addUserID);
+
+    const userExistInBoard = arryOfTeam.find((user) => {
+      console.log("user._id", user._id);
+
+      return user._id.toString() === addUserID;
+    });
+
+    console.log("userExistInBoard", userExistInBoard);
+
+    if (userExistInBoard) {
+      // add condition that if user exist tell him that
+      const addUser = await ProjectModel.findByIdAndUpdate(
+        { _id: projectID },
+        { $push: { projectMembers: userExistInBoard } },
+        { new: true }
+      );
+    }
+
+    // console.log("deleteProject", deleteProject);
+
+    res.status(200).json({
+      success: true,
+      message: `add user to Project successfully`,
+      user: userExistInBoard,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
+
+// delete Team from Project
+const deleteUserFromProject = async (req, res) => {
+  projectID = req.params.projectID;
+  userID = req.params.userID;
+
+  try {
+    const removeUser = await ProjectModel.findByIdAndUpdate(
+      { _id: projectID },
+      { $pull: { projectMembers: userID } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: `delete user from Project successfully`,
+      team: removeUser,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
 module.exports = {
   createNewProject,
   getAllProjects,
   getProjectById,
   updateProjectById,
   deleteProjectById,
+  getTeamOFProject,
+  addUserToProject,
+  deleteUserFromProject,
 };
