@@ -47,7 +47,7 @@ const createNewCard = async (req, res) => {
     });
   }
 };
-//
+
 //
 // get all cards
 const getAllCards = async (req, res) => {
@@ -152,10 +152,111 @@ const updateCardById = async (req, res) => {
   }
 };
 
+//==========================>
+// add/remove/get team to Card
+
+// get Team OF Card
+const getTeamOFCard = async (req, res) => {
+  // console.log("baha");
+  cardID = req.params.cardID;
+
+  try {
+    const targetCard = await CardModel.findById({
+      _id: cardID,
+    }).populate("cardAssignedTo");
+    // console.log("targetProject", targetProject);
+    const arryOfTeam = targetCard.cardAssignedTo;
+
+    res.status(200).json({
+      success: true,
+      message: `Get Team Of card successfully`,
+      team: arryOfTeam,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
+
+// add Team to Card
+const addUserToCard = async (req, res) => {
+  cardID = req.params.cardID;
+  addUserID = req.params.addUserID;
+
+  try {
+    const targetCard = await CardModel.findById({
+      _id: cardID,
+    });
+    const idTicket = targetCard.cardTicket;
+    const targetTicket = await TicketModel.findById({ _id: idTicket });
+    const arryOfTeam = targetTicket.assigneeTo;
+    const userExistInTicket = arryOfTeam.find((user) => {
+      return user._id.toString() === addUserID;
+    });
+
+    if (userExistInTicket) {
+      // add condition that if user exist tell him that
+
+      const addUser = await CardModel.findByIdAndUpdate(
+        { _id: cardID },
+        { $push: { cardAssignedTo: addUserID } },
+        { new: true }
+      );
+    }
+
+    res.status(200).json({
+      success: true,
+      message: `add user to card successfully`,
+      user: userExistInTicket,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
+
+// delete Team from Card
+const deleteUserFromCard = async (req, res) => {
+  cardID = req.params.cardID;
+  userID = req.params.userID;
+
+  try {
+    const removeUser = await CardModel.findByIdAndUpdate(
+      { _id: cardID },
+      { $pull: { cardAssignedTo: userID } },
+      { new: true }
+    );
+
+    res.status(200).json({
+      success: true,
+      message: `delete user from card successfully`,
+      team: removeUser,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
+
 module.exports = {
   createNewCard,
   getAllCards,
   getCardById,
   deleteCardById,
   updateCardById,
+  getTeamOFCard,
+  addUserToCard,
+  deleteUserFromCard,
 };

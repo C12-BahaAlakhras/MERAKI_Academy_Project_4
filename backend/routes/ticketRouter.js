@@ -41,7 +41,7 @@ ticketsRouter.put("/:ticketID", updateTicketsById);
 
 // add/remove/get team to ticket
 // get
-ticketsRouter.get("/:ticketID", getTeamOFTicket);
+ticketsRouter.get("/team/:ticketID", getTeamOFTicket);
 // add
 ticketsRouter.post("/team/:ticketID/:addUserID", addUserToTicket);
 //delete

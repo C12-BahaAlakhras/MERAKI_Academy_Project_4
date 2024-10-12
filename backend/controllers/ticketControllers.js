@@ -239,7 +239,7 @@ const deleteUserFromTicket = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      message: `delete user from Project successfully`,
+      message: `delete user from ticket successfully`,
       team: removeUser,
     });
   } catch (err) {

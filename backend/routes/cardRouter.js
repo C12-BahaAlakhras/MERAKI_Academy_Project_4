@@ -8,6 +8,9 @@ const {
   getCardById,
   deleteCardById,
   updateCardById,
+  getTeamOFCard,
+  addUserToCard,
+  deleteUserFromCard,
 } = require("../controllers/cardControllers");
 //
 const cardsRouter = express.Router();
@@ -30,5 +33,12 @@ cardsRouter.get("/:cardID", getCardById);
 cardsRouter.delete("/:cardID", deleteCardById);
 // update Specific card
 cardsRouter.put("/:cardID", updateCardById);
+
+// get
+cardsRouter.get("/card/:cardID", getTeamOFCard);
+// add
+cardsRouter.post("/card/:cardID/:addUserID", addUserToCard);
+// delete
+cardsRouter.delete("/card/:cardID/:userID", deleteUserFromCard);
 
 module.exports = cardsRouter;
