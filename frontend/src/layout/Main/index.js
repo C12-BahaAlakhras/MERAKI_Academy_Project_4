@@ -10,7 +10,7 @@ export default function Main() {
         <DashboardNavbar />
         <HomeNavbar />
       </header>
-      <main>
+      <main className="h-screen">
         <Outlet />
       </main>
     </div>
