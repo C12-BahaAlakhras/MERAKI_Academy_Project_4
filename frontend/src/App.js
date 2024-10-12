@@ -1,11 +1,17 @@
-import React from 'react'
+import React from "react";
 import "./App.css";
+import { RouterProvider } from "react-router-dom";
+// import RegisterPage from "./pages/registerPage/RegisterPage";
+import { router } from "./routers/index";
+
 const App = () => {
   return (
-   <div className="App">
-      <h1>Hello World!</h1>
-    </div>
-  )
-}
+    <RouterProvider router={router} />
+    // <div className="App">
 
-export default App
+    //   {/* <RegisterPage /> */}
+    // </div>
+  );
+};
+
+export default App;
