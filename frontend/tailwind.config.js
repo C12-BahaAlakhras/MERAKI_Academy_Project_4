@@ -6,6 +6,7 @@ module.exports = {
     extend: {
       height: {
         header: "8vh", // custom height for header
+        hero: "92vh",
       },
       colors: {
         primary: "#0C66E4", // --e-global-color-primary

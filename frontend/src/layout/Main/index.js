@@ -7,10 +7,10 @@ export default function Main() {
   return (
     <div>
       <header>
-        <DashboardNavbar />
+        {/* <DashboardNavbar /> */}
         <HomeNavbar />
       </header>
-      <main className="h-screen">
+      <main className="h-hero">
         <Outlet />
       </main>
     </div>

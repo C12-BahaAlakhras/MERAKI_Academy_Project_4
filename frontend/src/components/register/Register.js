@@ -1,51 +1,89 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FaGoogle } from "react-icons/fa";
+import { AppData } from "../../App";
 
 const Register = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
+  const { userData, setUserData, darkMode, setDarkMode } = useContext(AppData);
+
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  // const handleChange = (e) => {
+  //   const { name, value } = e.target.value;
+  //   setUserData({ ...userData, [name]: value });
+  // };
 
+  const fullNameInput = (e) => {
+    const fullNameValue = e.target.value;
+    setUserData({ ...userData, fullName: fullNameValue });
+  };
+  // =============================
+  const positionInput = (e) => {
+    const fullNameValue = e.target.value;
+    setUserData({ ...userData, fullName: fullNameValue });
+  }; // =============================
+  const emailInput = (e) => {
+    const fullNameValue = e.target.value;
+    setUserData({ ...userData, fullName: fullNameValue });
+  }; // =============================
+  const handlePasswordChange = (e) => {
+    const fullNameValue = e.target.value;
+    setUserData({ ...userData, fullName: fullNameValue });
+  }; // =============================
+
+  const userImageInput = (e) => {
+    const fullNameValue = e.target.value;
+    setUserData({ ...userData, fullName: fullNameValue });
+  };
+  // =============================
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    console.log(formData);
   };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
-      <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        {/* Color Mode Selector (for dark/light theme switch) */}
-        {/* <div className="absolute top-4 right-4">
-          <button className="text-gray-600">🌙</button>
-        </div> */}
+  // fullName: "",
+  // position: "",
+  // email: "",
+  // country: "",
+  // password: "",
+  // userImage: "",
 
+  return (
+    <div className="h-hero flex items-center justify-center bg-gray-50 p-4">
+      <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
         {/* Card Content */}
-        <div className=" text-left mb-6">
-          <h1 className="text-4xl font-semibold">Login</h1>
+        <div className="text-left mb-6">
+          <h1 className="text-4xl font-semibold">Sign Up</h1>
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-4">
+          {/* Full Name Field */}
+          <div className="space-y-1">
+            <input
+              type="text"
+              onChange={fullNameInput}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
+              placeholder="Full name"
+              required
+            />
+          </div>
+
+          {/* Position Field */}
+          <div className="space-y-1">
+            <input
+              type="text"
+              onChange={positionInput}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
+              placeholder="Position"
+              required
+            />
+          </div>
+
           {/* Email Field */}
           <div className="space-y-1">
-            <label htmlFor="email" className="block text-gray-700">
-              Email
-            </label>
             <input
-              id="email"
-              name="email"
               type="email"
-              value={formData.email}
-              onChange={handleChange}
+              onChange={emailInput}
               className={`w-full px-4 py-2 border ${
                 emailError ? "border-red-500" : "border-gray-300"
               } rounded-md focus:outline-none`}
@@ -59,24 +97,12 @@ const Register = () => {
 
           {/* Password Field */}
           <div className="space-y-1">
-            <div className="flex justify-between">
-              <label htmlFor="password" className="block text-gray-700">
-                Password
-              </label>
-              <button
-                type="button"
-                className="text-blue-500 text-sm hover:underline"
-                onClick={() => alert("Forgot Password")}
-              >
-                Forgot your password?
-              </button>
-            </div>
             <input
               id="password"
               name="password"
               type="password"
-              value={formData.password}
-              onChange={handleChange}
+              value={userData.password}
+              onChange={handlePasswordChange}
               className={`w-full px-4 py-2 border ${
                 passwordError ? "border-red-500" : "border-gray-300"
               } rounded-md focus:outline-none`}
@@ -88,16 +114,16 @@ const Register = () => {
             )}
           </div>
 
-          {/* Remember me Checkbox */}
-          <div className="flex items-center">
+          {/* User Image Upload Field */}
+          <div className="space-y-1">
+            <label className="block text-gray-700">Upload Profile Image</label>
             <input
-              type="checkbox"
-              className="mr-2 rounded text-blue-500 focus:ring-2 focus:ring-blue-500"
-              id="rememberMe"
+              type="file"
+              onChange={userImageInput}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
+              accept="image/*"
+              required
             />
-            <label htmlFor="rememberMe" className="text-gray-700">
-              Remember me
-            </label>
           </div>
 
           {/* Submit Button */}
@@ -105,16 +131,8 @@ const Register = () => {
             type="submit"
             className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
-            Login
+            Sign Up
           </button>
-
-          {/* Sign Up Link */}
-          <p className="text-center text-gray-700 mt-4">
-            Don’t have an account?{" "}
-            <a href="/signup" className="text-blue-500 hover:underline">
-              Sign up
-            </a>
-          </p>
         </form>
 
         {/* Divider */}
@@ -131,7 +149,7 @@ const Register = () => {
             className="w-full flex items-center justify-center border border-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-100"
           >
             <FaGoogle className="mr-2" />
-            Login with Google
+            Signup with Google
           </button>
         </div>
       </div>
