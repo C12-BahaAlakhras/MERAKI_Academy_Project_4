@@ -1,52 +1,75 @@
 import React from "react";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
 import { AppData } from "../../App";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
-  const { userData, setUserData, darkMode, setDarkMode } = useContext(AppData);
+  const navagite = useNavigate();
+  const {
+    userData,
+    setUserData,
+    darkMode,
+    setDarkMode,
+    IsLogin,
+    setIsLogin,
+    IsRegister,
+    setIsRegister,
+  } = useContext(AppData);
 
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const [error, setError] = useState(false);
+  const [message, setMessage] = useState("");
 
-  // const handleChange = (e) => {
-  //   const { name, value } = e.target.value;
-  //   setUserData({ ...userData, [name]: value });
-  // };
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+  // =============================
 
   const fullNameInput = (e) => {
-    const fullNameValue = e.target.value;
-    setUserData({ ...userData, fullName: fullNameValue });
+    setUserData({ ...userData, fullName: e.target.value });
   };
   // =============================
   const positionInput = (e) => {
-    const fullNameValue = e.target.value;
-    setUserData({ ...userData, fullName: fullNameValue });
+    setUserData({ ...userData, position: e.target.value });
   }; // =============================
   const emailInput = (e) => {
-    const fullNameValue = e.target.value;
-    setUserData({ ...userData, fullName: fullNameValue });
+    setUserData({ ...userData, email: e.target.value });
   }; // =============================
-  const handlePasswordChange = (e) => {
-    const fullNameValue = e.target.value;
-    setUserData({ ...userData, fullName: fullNameValue });
+  const passwordInput = (e) => {
+    setUserData({ ...userData, password: e.target.value });
   }; // =============================
-
-  const userImageInput = (e) => {
-    const fullNameValue = e.target.value;
-    setUserData({ ...userData, fullName: fullNameValue });
-  };
+  const boardNamenInput = (e) => {
+    setUserData({ ...userData, boardName: e.target.value });
+  }; // =============================
   // =============================
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const submit = () => {
+    console.log("inside submeit btn");
+    axios
+      .post("http://localhost:5000/users/register", userData)
+      .then((res) => {
+        console.log("register successfully:", res.data);
+        setMessage(res.data.message);
+        setError(false);
+        setIsRegister(true);
+      })
+      .catch((err) => {
+        console.log("register error:", err.message);
+        setMessage(err.response.data.message);
+        setError(true);
+        setIsRegister(false);
+      });
   };
 
-  // fullName: "",
-  // position: "",
-  // email: "",
-  // country: "",
-  // password: "",
-  // userImage: "",
+  useEffect(() => {
+    if (!IsRegister) return;
+
+    navagite("/login");
+  }, [IsRegister]);
 
   return (
     <div className="h-hero flex items-center justify-center bg-gray-50 p-4">
@@ -56,7 +79,7 @@ const Register = () => {
           <h1 className="text-4xl font-semibold">Sign Up</h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-4">
           {/* Full Name Field */}
           <div className="space-y-1">
             <input
@@ -78,6 +101,16 @@ const Register = () => {
               required
             />
           </div>
+          {/* board name Field */}
+          <div className="space-y-1">
+            <input
+              type="text"
+              onChange={boardNamenInput}
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
+              placeholder="Board or Company Name"
+              required
+            />
+          </div>
 
           {/* Email Field */}
           <div className="space-y-1">
@@ -85,55 +118,52 @@ const Register = () => {
               type="email"
               onChange={emailInput}
               className={`w-full px-4 py-2 border ${
-                emailError ? "border-red-500" : "border-gray-300"
+                error ? "border-red-500" : "border-gray-300"
               } rounded-md focus:outline-none`}
-              placeholder="your@email.com"
+              placeholder="Email"
               required
             />
-            {emailError && (
-              <p className="text-red-500 text-sm">Invalid email address</p>
+            {error && (
+              <p className="text-red-500 text-sm">
+                Email or Password is incorrect
+              </p>
             )}
           </div>
 
           {/* Password Field */}
           <div className="space-y-1">
             <input
-              id="password"
-              name="password"
               type="password"
-              value={userData.password}
-              onChange={handlePasswordChange}
+              onChange={passwordInput}
               className={`w-full px-4 py-2 border ${
-                passwordError ? "border-red-500" : "border-gray-300"
+                error ? "border-red-500" : "border-gray-300"
               } rounded-md focus:outline-none`}
               placeholder="••••••"
               required
             />
-            {passwordError && (
-              <p className="text-red-500 text-sm">Password is incorrect</p>
+            {error && (
+              <p className="text-red-500 text-sm">
+                Email or Password is incorrect
+              </p>
             )}
-          </div>
-
-          {/* User Image Upload Field */}
-          <div className="space-y-1">
-            <label className="block text-gray-700">Upload Profile Image</label>
-            <input
-              type="file"
-              onChange={userImageInput}
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none"
-              accept="image/*"
-              required
-            />
           </div>
 
           {/* Submit Button */}
           <button
             type="submit"
+            onClick={submit}
             className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Sign Up
           </button>
-        </form>
+          {/* Sign Up Link */}
+          <p className="text-center text-gray-700 mt-4">
+            Do you have an account?{" "}
+            <a href="/login" className="text-blue-500 hover:underline">
+              Login
+            </a>
+          </p>
+        </div>
 
         {/* Divider */}
         <div className="flex items-center justify-center my-4">
@@ -145,7 +175,7 @@ const Register = () => {
         {/* Social Media Buttons */}
         <div className="space-y-3">
           <button
-            onClick={() => alert("Login with Google")}
+            onClick={() => alert("Signup with Google")}
             className="w-full flex items-center justify-center border border-gray-300 text-gray-700 py-2 px-4 rounded-md hover:bg-gray-100"
           >
             <FaGoogle className="mr-2" />

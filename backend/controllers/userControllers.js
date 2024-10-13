@@ -97,7 +97,7 @@ const login = (req, res) => {
         };
 
         const options = {
-          expiresIn: "180m",
+          expiresIn: "1800m",
         };
         const token = jwt.sign(payload, process.env.SECRET, options);
         res.status(200).json({

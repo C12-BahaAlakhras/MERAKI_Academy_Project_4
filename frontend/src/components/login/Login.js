@@ -1,59 +1,99 @@
 import React from "react";
-import { useState } from "react";
+import { useState, useContext, useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
+import { AppData } from "../../App";
+import { useNavigate } from "react-router-dom";
+import axios from "axios";
 
 const Login = () => {
-  const [formData, setFormData] = useState({
-    email: "",
-    password: "",
-  });
-  const [emailError, setEmailError] = useState(false);
-  const [passwordError, setPasswordError] = useState(false);
+  const navagite = useNavigate();
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
+  const {
+    token,
+    setToken,
+    userLogin,
+    setUserLogin,
+    darkMode,
+    setDarkMode,
+    userData,
+    setUserData,
+    IsLogin,
+    setIsLogin,
+    IsRegister,
+    setIsRegister,
+  } = useContext(AppData);
+
+  const [isError, setIsError] = useState(false);
+  const [message, setMessage] = useState(false);
+
+  // =========================================================================
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
+  }, [darkMode]);
+  // ===========================================================
+  const emailInput = (e) => {
+    setUserLogin({ ...userLogin, email: e.target.value });
+  };
+  // ===========================================================
+  const passwordInput = (e) => {
+    setUserLogin({ ...userLogin, password: e.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    console.log(formData);
+  const loginBtn = () => {
+    console.log("inside btn login");
+    axios
+      .post("http://localhost:5000/users/login", userLogin)
+      .then((res) => {
+        setMessage(res.data.message);
+        setIsError(false);
+        setIsLogin(true);
+        console.log("if tmam ===>", res.data);
+        const tokenUser = res.data.token;
+        setToken(tokenUser);
+      })
+      .catch((err) => {
+        console.log("register error:", err);
+        setMessage(err.response.data.message);
+        setIsError(true);
+        setIsLogin(false);
+      });
   };
+
+  useEffect(() => {
+    if (!IsLogin) return;
+
+    navagite("/dashboard");
+  }, [IsLogin]);
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 p-4">
+    <div className="h-hero flex items-center justify-center bg-gray-50 p-4">
       <div className="bg-white shadow-md rounded-lg p-8 max-w-md w-full">
-        {/* Color Mode Selector (for dark/light theme switch) */}
-        <div className="absolute top-4 right-4">
-          <button className="text-gray-600">🌙</button>
-        </div>
-
         {/* Card Content */}
         <div className=" text-left mb-6">
           <h1 className="text-4xl font-semibold">Login</h1>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
+        <div className="space-y-4">
           {/* Email Field */}
           <div className="space-y-1">
             <label htmlFor="email" className="block text-gray-700">
               Email
             </label>
             <input
-              id="email"
-              name="email"
               type="email"
-              value={formData.email}
-              onChange={handleChange}
+              onChange={emailInput}
               className={`w-full px-4 py-2 border ${
-                emailError ? "border-red-500" : "border-gray-300"
+                isError ? "border-red-500" : "border-gray-300"
               } rounded-md focus:outline-none`}
               placeholder="your@email.com"
               required
             />
-            {emailError && (
-              <p className="text-red-500 text-sm">Invalid email address</p>
+            {isError && (
+              <p className="text-red-500 text-sm">Invalid email or Password </p>
             )}
           </div>
 
@@ -63,46 +103,24 @@ const Login = () => {
               <label htmlFor="password" className="block text-gray-700">
                 Password
               </label>
-              <button
-                type="button"
-                className="text-blue-500 text-sm hover:underline"
-                onClick={() => alert("Forgot Password")}
-              >
-                Forgot your password?
-              </button>
             </div>
             <input
-              id="password"
-              name="password"
               type="password"
-              value={formData.password}
-              onChange={handleChange}
+              onChange={passwordInput}
               className={`w-full px-4 py-2 border ${
-                passwordError ? "border-red-500" : "border-gray-300"
+                isError ? "border-red-500" : "border-gray-300"
               } rounded-md focus:outline-none`}
               placeholder="••••••"
               required
             />
-            {passwordError && (
-              <p className="text-red-500 text-sm">Password is incorrect</p>
+            {isError && (
+              <p className="text-red-500 text-sm">Invalid email or Password</p>
             )}
-          </div>
-
-          {/* Remember me Checkbox */}
-          <div className="flex items-center">
-            <input
-              type="checkbox"
-              className="mr-2 rounded text-blue-500 focus:ring-2 focus:ring-blue-500"
-              id="rememberMe"
-            />
-            <label htmlFor="rememberMe" className="text-gray-700">
-              Remember me
-            </label>
           </div>
 
           {/* Submit Button */}
           <button
-            type="submit"
+            onClick={loginBtn}
             className="w-full bg-blue-500 text-white font-bold py-2 px-4 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
           >
             Login
@@ -111,11 +129,11 @@ const Login = () => {
           {/* Sign Up Link */}
           <p className="text-center text-gray-700 mt-4">
             Don’t have an account?{" "}
-            <a href="/signup" className="text-blue-500 hover:underline">
+            <a href="/register" className="text-blue-500 hover:underline">
               Sign up
             </a>
           </p>
-        </form>
+        </div>
 
         {/* Divider */}
         <div className="flex items-center justify-center my-4">
