@@ -1,9 +1,10 @@
 import { Outlet } from "react-router-dom";
 import { useContext } from "react";
 import DashboardNavbar from "../../components/Navbar/DashboardNavbar";
-import HomeNavbar from "../../components/Navbar/HomeNavbar";
+
 import { AppData } from "../../App";
-export default function Main() {
+import SlideBar from "../../components/slideBar/SlideBar";
+export default function DashboardLayout() {
   const {
     token,
     setToken,
@@ -21,10 +22,15 @@ export default function Main() {
   return (
     <div>
       <header>
-        <HomeNavbar />
+        <DashboardNavbar />
       </header>
-      <main className="h-hero">
-        <Outlet />
+      <main className="h-hero  flex">
+        <div className="w-1/5">
+          <SlideBar />
+        </div>
+        <div className="w-4/5">
+          <Outlet />
+        </div>
       </main>
     </div>
   );
