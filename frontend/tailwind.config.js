@@ -16,6 +16,9 @@ module.exports = {
         light: "#E9F2FF61", // --e-global-color-light
         background: "#F5F8FE", // --e-global-color-d54a1ce
       },
+      boxShadow: {
+        'custom': '-1px 1px 20px 20px #8888881c',
+      },
     },
   },
   plugins: [],

@@ -7,9 +7,24 @@ import { MdNotifications } from "react-icons/md";
 import "./DashboardNavbar.css";
 
 const DashboardNavbar = () => {
-  const { darkMode, setDarkMode } = useContext(AppData);
-  // Toggle between dark and light mode
+  //===========================================================
 
+  const {
+    token,
+    setToken,
+    userLogin,
+    setUserLogin,
+    darkMode,
+    setDarkMode,
+    userData,
+    setUserData,
+    IsLogin,
+    setIsLogin,
+    IsRegister,
+    setIsRegister,
+  } = useContext(AppData);
+
+  //===========================================================
   useEffect(() => {
     if (darkMode) {
       document.documentElement.classList.add("dark");
@@ -23,7 +38,7 @@ const DashboardNavbar = () => {
   return (
     <div className="navbar h-header">
       {/* Left Section: Board Name */}
-      <div className="navbar-board-name">Board name</div>
+      <div className="navbar-board-name">{userData.userBoard?.boardName}</div>
 
       {/* Right Section */}
 
@@ -55,9 +70,13 @@ const DashboardNavbar = () => {
           {/* User Info */}
           <div className="navbar-user-info">
             {/* Circle with User Initial */}
-            <div className="navbar-user-initial">A</div>
+            <div className="navbar-user-initial">
+              {userData.fullName[0]?.toUpperCase()}
+            </div>
             {/* Username */}
-            <span className="navbar-username">Ali</span>
+            <span className="navbar-username">
+              {userData.fullName?.toUpperCase()}
+            </span>
           </div>
         </div>
       </div>

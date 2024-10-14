@@ -51,9 +51,17 @@ const Login = () => {
         setMessage(res.data.message);
         setIsError(false);
         setIsLogin(true);
-        console.log("if tmam ===>", res.data);
         const tokenUser = res.data.token;
         setToken(tokenUser);
+        setUserData(res.data);
+
+        console.log("Login successful:", res.data.userLogined);
+        console.log("token", res.data.token);
+
+        // Store the login state and user data in localStorage
+        localStorage.setItem("isLogin", true);
+        localStorage.setItem("userData", JSON.stringify(res.data.userLogined));
+        localStorage.setItem("token", JSON.stringify(res.data.token));
       })
       .catch((err) => {
         console.log("register error:", err);
@@ -62,10 +70,20 @@ const Login = () => {
         setIsLogin(false);
       });
   };
+  const storedIsLogin = localStorage.getItem("isLogin");
+  const storedUserData = localStorage.getItem("userData");
+  const storedUserToken = localStorage.getItem("token");
 
   useEffect(() => {
+    if (storedIsLogin) {
+      setIsLogin(storedIsLogin);
+      setUserData(storedUserData ? JSON.parse(storedUserData) : null);
+    }
+  }, []);
+  // setTimeout(() => {}, 300);
+  useEffect(() => {
+    // IsLogin = storedIsLogin;
     if (!IsLogin) return;
-
     navagite("/dashboard");
   }, [IsLogin]);
 

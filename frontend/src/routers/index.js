@@ -6,6 +6,9 @@ import RegisterPage from "../pages/registerPage/RegisterPage";
 import LoginPage from "../pages/registerPage/LoginPage";
 import Dashboard from "../pages/dashboardPage/Dashboard";
 import DashboardLayout from "../layout/Dashboard";
+import ProjectsPage from "../pages/ProjectsPage";
+import Tasks from "../pages/Tasks";
+import Users from "../pages/Users";
 
 export const router = createBrowserRouter([
   {
@@ -31,12 +34,12 @@ export const router = createBrowserRouter([
     element: <DashboardLayout />,
     children: [
       {
-        path: "projects",
-        element: <Dashboard />,
+        path: "",
+        element: <ProjectsPage />,
       },
       {
         path: "tasks",
-        element: <Dashboard />,
+        element: <Tasks />,
       },
       {
         path: "in-progress",
@@ -52,11 +55,7 @@ export const router = createBrowserRouter([
       },
       {
         path: "team",
-        element: <Dashboard />,
-      },
-      {
-        path: "trashed",
-        element: <Dashboard />,
+        element: <Users />,
       },
     ],
   },
