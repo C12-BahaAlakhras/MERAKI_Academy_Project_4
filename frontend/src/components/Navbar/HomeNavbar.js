@@ -34,7 +34,7 @@ const HomeNavbar = () => {
           onClick={handleThemeToggle}
           className="bg-white dark:bg-gray-700 text-gray-800 dark:text-white p-3 rounded-lg shadow-lg hover:scale-110 transform transition-transform duration-300 ease-in-out"
         >
-          {darkMode ? <FaSun size={20} /> : <FaMoon size={20} />}
+          {darkMode ? <FaSun size={15} /> : <FaMoon size={15} />}
         </button>
       </div>
     </div>

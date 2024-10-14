@@ -5,8 +5,8 @@ module.exports = {
   theme: {
     extend: {
       height: {
-        header: "8vh", // custom height for header
-        hero: "92vh",
+        header: "10vh", // custom height for header
+        hero: "90vh",
       },
       colors: {
         primary: "#0C66E4", // --e-global-color-primary

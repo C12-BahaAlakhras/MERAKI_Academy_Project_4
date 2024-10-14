@@ -20,7 +20,7 @@ export default function Main() {
   } = useContext(AppData);
   return (
     <div>
-      <header>{token ? <DashboardNavbar /> : <HomeNavbar />}</header>
+      <header>{IsLogin ? <DashboardNavbar /> : <HomeNavbar />}</header>
       <main className="h-hero">
         <Outlet />
       </main>
