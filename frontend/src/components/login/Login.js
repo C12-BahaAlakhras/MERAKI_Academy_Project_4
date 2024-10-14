@@ -21,6 +21,8 @@ const Login = () => {
     setIsLogin,
     IsRegister,
     setIsRegister,
+    loading,
+    setLoading,
   } = useContext(AppData);
 
   const [isError, setIsError] = useState(false);
@@ -55,19 +57,21 @@ const Login = () => {
         setToken(tokenUser);
         setUserData(res.data);
 
-        console.log("Login successful:", res.data.userLogined);
-        console.log("token", res.data.token);
+        // console.log("Login successful:", res.data.userLogined);
+        // console.log("token", res.data.token);
 
         // Store the login state and user data in localStorage
         localStorage.setItem("isLogin", true);
         localStorage.setItem("userData", JSON.stringify(res.data.userLogined));
         localStorage.setItem("token", JSON.stringify(res.data.token));
+        setLoading(true);
       })
       .catch((err) => {
         console.log("register error:", err);
         setMessage(err.response.data.message);
         setIsError(true);
         setIsLogin(false);
+        setLoading(false);
       });
   };
   const storedIsLogin = localStorage.getItem("isLogin");
@@ -84,7 +88,10 @@ const Login = () => {
   useEffect(() => {
     // IsLogin = storedIsLogin;
     if (!IsLogin) return;
-    navagite("/dashboard");
+    // setLoading(false);
+    setTimeout(() => {
+      navagite("/dashboard");
+    }, 200);
   }, [IsLogin]);
 
   return (

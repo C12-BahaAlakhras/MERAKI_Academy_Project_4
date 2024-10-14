@@ -5,6 +5,7 @@ import { AppData } from "../../App";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { MdNotifications } from "react-icons/md";
 import "./DashboardNavbar.css";
+import Loading from "../Loading";
 
 const DashboardNavbar = () => {
   //===========================================================
@@ -22,7 +23,23 @@ const DashboardNavbar = () => {
     setIsLogin,
     IsRegister,
     setIsRegister,
+    loading,
+    setLoading,
   } = useContext(AppData);
+  // ===========================================================
+  let firstLetter = userData?.fullName
+    ? userData.fullName.charAt(0).toUpperCase()
+    : "";
+
+  const storedIsLogin = localStorage.getItem("isLogin");
+  const storedUserData = localStorage.getItem("userData");
+  const storedUserToken = localStorage.getItem("token");
+
+  useEffect(() => {
+    setIsLogin(storedIsLogin);
+    setUserData(storedUserData ? JSON.parse(storedUserData) : null);
+    setToken(storedUserToken);
+  }, []);
 
   //===========================================================
   useEffect(() => {
@@ -32,13 +49,15 @@ const DashboardNavbar = () => {
       document.documentElement.classList.remove("dark");
     }
   }, [darkMode]);
+
+  // ===================================================
   const handleThemeToggle = () => {
     setDarkMode(!darkMode);
   };
   return (
     <div className="navbar h-header">
       {/* Left Section: Board Name */}
-      <div className="navbar-board-name">{userData.userBoard?.boardName}</div>
+      <div className="navbar-board-name">{userData?.userBoard?.boardName}</div>
 
       {/* Right Section */}
 
@@ -70,12 +89,10 @@ const DashboardNavbar = () => {
           {/* User Info */}
           <div className="navbar-user-info">
             {/* Circle with User Initial */}
-            <div className="navbar-user-initial">
-              {userData.fullName[0]?.toUpperCase()}
-            </div>
+            <div className="navbar-user-initial">{firstLetter}</div>
             {/* Username */}
             <span className="navbar-username">
-              {userData.fullName?.toUpperCase()}
+              {userData?.fullName?.toUpperCase()}
             </span>
           </div>
         </div>

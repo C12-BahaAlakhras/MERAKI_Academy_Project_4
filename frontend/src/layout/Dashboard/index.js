@@ -1,9 +1,10 @@
 import { Outlet, useNavigate } from "react-router-dom";
-import React, { useEffect, useContext } from "react";
+import React, { useEffect, useContext, useState } from "react";
 import DashboardNavbar from "../../components/Navbar/DashboardNavbar";
 
 import { AppData } from "../../App";
 import SlideBar from "../../components/slideBar/SlideBar";
+import Loading from "../../components/Loading";
 export default function DashboardLayout() {
   const navagite = useNavigate();
 
@@ -20,30 +21,48 @@ export default function DashboardLayout() {
     setIsLogin,
     IsRegister,
     setIsRegister,
+    loading,
+    setLoading,
   } = useContext(AppData);
+
+  //   const [loadingOne, setLoadingOne] = useState(false);
   // ===========================================================
 
-  //   useEffect(() => {
-  //     if (IsLogin) return;
-  //     navagite("/login");
-  //   }, [IsLogin]);
+  useEffect(() => {
+    setTimeout(() => {
+      console.log("inside settime storedUserData ==> ", userData);
+    }, 800);
+    setTimeout(() => {
+      if (userData === "undefined") {
+        return;
+      } else {
+        setLoading(false);
+      }
+    }, 1000);
+  }, []);
   // ===========================================================
 
   return (
     <div>
-      <header>
-        <DashboardNavbar />
-      </header>
-      <main className="h-hero  flex">
-        <div className="w-1/6">
-          <SlideBar />
-        </div>
-        <div className="w-5/6 bg-gray-100 p-4 pl-0">
-          <div className="bg-white rounded-lg h-full p-4 ">
-            <Outlet />
-          </div>
-        </div>
-      </main>
+      {loading ? (
+        <Loading />
+      ) : (
+        <>
+          <header>
+            <DashboardNavbar />
+          </header>
+          <main className="h-hero  flex">
+            <div className="w-1/6">
+              <SlideBar />
+            </div>
+            <div className="w-5/6 bg-gray-100 p-4 pl-0">
+              <div className="bg-white rounded-lg h-full p-4 ">
+                <Outlet />
+              </div>
+            </div>
+          </main>
+        </>
+      )}
     </div>
   );
 }

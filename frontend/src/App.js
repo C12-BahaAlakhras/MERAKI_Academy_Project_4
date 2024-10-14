@@ -23,6 +23,8 @@ const App = () => {
     boardName: "",
   });
 
+  const [loading, setLoading] = useState(false);
+
   return (
     <AppData.Provider
       value={{
@@ -38,6 +40,8 @@ const App = () => {
         setIsLogin,
         IsRegister,
         setIsRegister,
+        loading,
+        setLoading,
       }}
     >
       <RouterProvider router={router} />
