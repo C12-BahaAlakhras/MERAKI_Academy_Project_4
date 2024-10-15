@@ -1,0 +1,12 @@
+.project-page {
+  border: 1px solid #000;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 1rem;
+}
+.add-project-div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center
+  /* justify-content: flex-end; */
+}

@@ -5,6 +5,8 @@ import DashboardNavbar from "../../components/Navbar/DashboardNavbar";
 import { AppData } from "../../App";
 import SlideBar from "../../components/slideBar/SlideBar";
 import Loading from "../../components/Loading";
+import { useAuthContext } from "../../contexts/AuthProvider";
+
 export default function DashboardLayout() {
   const navagite = useNavigate();
 
@@ -23,7 +25,7 @@ export default function DashboardLayout() {
     setIsRegister,
     loading,
     setLoading,
-  } = useContext(AppData);
+  } = useAuthContext();
 
   //   const [loadingOne, setLoadingOne] = useState(false);
   // ===========================================================

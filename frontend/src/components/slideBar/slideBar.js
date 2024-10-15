@@ -9,6 +9,8 @@ import { FaTasks, FaTrashAlt, FaUsers } from "react-icons/fa";
 import { NavLink, useNavigate } from "react-router-dom";
 import { AppData } from "../../App";
 
+import { useAuthContext } from "../../contexts/AuthProvider";
+
 const linkData = [
   { label: "Dashboard", link: "", icon: <MdDashboard /> },
   { label: "Tasks", link: "tasks", icon: <FaTasks /> },
@@ -26,7 +28,7 @@ const linkData = [
 const SlideBar = () => {
   const navagite = useNavigate();
 
-  const { IsLogin, setIsLogin } = useContext(AppData);
+  const { IsLogin, setIsLogin } = useAuthContext();
   const logoutBtn = () => {
     localStorage.clear();
     setIsLogin(false);

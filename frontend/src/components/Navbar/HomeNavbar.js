@@ -1,11 +1,11 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-import { AppData } from "../../App";
+import React, { useEffect } from "react";
+import { Link } from "react-router-dom";
 
 import { FaSun, FaMoon } from "react-icons/fa";
+import { useAuthContext } from "../../contexts/AuthProvider";
+
 const HomeNavbar = () => {
-  const { darkMode, setDarkMode } = useContext(AppData);
+  const { darkMode, setDarkMode } = useAuthContext();
 
   // Toggle between dark and light mode
   const handleThemeToggle = () => {

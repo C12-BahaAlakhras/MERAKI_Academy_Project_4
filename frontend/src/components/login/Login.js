@@ -1,9 +1,9 @@
 import React from "react";
-import { useState, useContext, useEffect } from "react";
+import { useState, useEffect } from "react";
 import { FaGoogle } from "react-icons/fa";
-import { AppData } from "../../App";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { useAuthContext } from "../../contexts/AuthProvider";
 
 const Login = () => {
   const navagite = useNavigate();
@@ -23,7 +23,7 @@ const Login = () => {
     setIsRegister,
     loading,
     setLoading,
-  } = useContext(AppData);
+  } = useAuthContext();
 
   const [isError, setIsError] = useState(false);
   const [message, setMessage] = useState(false);
@@ -46,7 +46,8 @@ const Login = () => {
   };
 
   const loginBtn = () => {
-    console.log("inside btn login");
+    setLoading(true);
+
     axios
       .post("http://localhost:5000/users/login", userLogin)
       .then((res) => {
@@ -56,15 +57,12 @@ const Login = () => {
         const tokenUser = res.data.token;
         setToken(tokenUser);
         setUserData(res.data);
-
-        // console.log("Login successful:", res.data.userLogined);
-        // console.log("token", res.data.token);
+        setLoading(false);
 
         // Store the login state and user data in localStorage
         localStorage.setItem("isLogin", true);
         localStorage.setItem("userData", JSON.stringify(res.data.userLogined));
         localStorage.setItem("token", JSON.stringify(res.data.token));
-        setLoading(true);
       })
       .catch((err) => {
         console.log("register error:", err);

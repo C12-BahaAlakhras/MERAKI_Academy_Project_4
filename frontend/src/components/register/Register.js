@@ -4,6 +4,7 @@ import { FaGoogle } from "react-icons/fa";
 import { AppData } from "../../App";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
+import { useAuthContext } from "../../contexts/AuthProvider";
 
 const Register = () => {
   const navagite = useNavigate();
@@ -16,7 +17,7 @@ const Register = () => {
     setIsLogin,
     IsRegister,
     setIsRegister,
-  } = useContext(AppData);
+  } = useAuthContext();
 
   const [error, setError] = useState(false);
   const [message, setMessage] = useState("");

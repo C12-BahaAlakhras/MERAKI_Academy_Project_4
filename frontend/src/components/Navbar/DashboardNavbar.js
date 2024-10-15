@@ -1,11 +1,14 @@
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
-import { AppData } from "../../App";
+// import { AppData } from "../../App";
 import { FaSun, FaMoon } from "react-icons/fa";
 import { MdNotifications } from "react-icons/md";
 import "./DashboardNavbar.css";
 import Loading from "../Loading";
+import AuthProvider from "../../contexts/AuthProvider";
+
+import { useAuthContext } from "../../contexts/AuthProvider";
 
 const DashboardNavbar = () => {
   //===========================================================
@@ -25,7 +28,7 @@ const DashboardNavbar = () => {
     setIsRegister,
     loading,
     setLoading,
-  } = useContext(AppData);
+  } = useAuthContext();
   // ===========================================================
   let firstLetter = userData?.fullName
     ? userData.fullName.charAt(0).toUpperCase()
