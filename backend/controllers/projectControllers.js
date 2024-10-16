@@ -33,6 +33,8 @@ const createNewProject = async (req, res) => {
       success: true,
       message: `Project created successfully `,
       result: (saveProject, updateBoard),
+      projectId: saveProject._id,
+      newProject: saveProject,
     });
   } catch (err) {
     // server errors

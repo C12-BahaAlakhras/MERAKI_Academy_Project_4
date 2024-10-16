@@ -10,6 +10,7 @@ import Loading from "../components/Loading";
 import ProjectDetails from "../components/project/ProjectDetails";
 import AuthProvider, { useAuthContext } from "../contexts/AuthProvider";
 import ProjectPop from "../components/AddProjectPop/ProjectPop";
+import RemoveProjectPop from "../components/AddProjectPop/RemoveProjectPop";
 
 const ProjectsPage = () => {
   //===========================================================
@@ -22,27 +23,19 @@ const ProjectsPage = () => {
     setLoading,
     showProjectPop,
     setShowProjectPop,
+    showPopProjectRemove,
+    setShowPopProjectRemove,
   } = useAuthContext();
   // ===========================================================
   const showPopAddProjectBtn = () => {
     setShowProjectPop(true);
-    // axios
-    //   .get(`http://localhost:5000/project/all/${}`)
-    //   .then((res) => {
-    //     console.log("arry of projects res.data.result ==>", res.data.result);
-    //     setMessage(res.data.message);
-    //     setIsError(false);
-    //     // setProjects(res.data.result);
-    //   })
-    //   .catch((err) => {
-    //     setMessage(err.response.data.message);
-    //     setIsError(true);
-    //   });
   };
   //===========================================================
-  const closeBtn = () => {
-    setShowProjectPop(false);
-  };
+
+  useEffect(() => {
+    console.log("bahaaaaaaaaaa");
+  }, [showProjectPop]);
+
   return (
     <>
       {loading ? (
@@ -60,19 +53,12 @@ const ProjectsPage = () => {
               Add Project
             </button>
           </div>
-          <div className="project-page py-3">
+          <div className="project-page py-3  ">
             <ProjectDetails />
           </div>
 
-          {showProjectPop ? (
-            <>
-              <div>
-                <h3>Title</h3>
-                <button onChange={closeBtn}>x</button>
-              </div>
-              <ProjectPop />
-            </>
-          ) : null}
+          {showProjectPop ? <ProjectPop /> : null}
+          {showPopProjectRemove ? <RemoveProjectPop /> : null}
         </>
       )}
     </>

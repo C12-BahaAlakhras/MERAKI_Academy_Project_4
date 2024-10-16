@@ -23,6 +23,8 @@ const AuthProvider = ({ children }) => {
   });
 
   const [loading, setLoading] = useState(false);
+  const [showPopProjectRemove, setShowPopProjectRemove] = useState(false);
+
   const [newProject, setNewProject] = useState([]);
   const [projects, setProjects] = useState([]);
 
@@ -61,6 +63,7 @@ const AuthProvider = ({ children }) => {
         setNewProject,
         projects,
         setProjects,
+        showPopProjectRemove, setShowPopProjectRemove
       }}
     >
       {children}

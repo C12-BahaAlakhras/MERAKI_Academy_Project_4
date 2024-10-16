@@ -39,34 +39,20 @@
   background-color: #e60000;
 }
 
-.form-pop {
+.form-pop-remove {
   display: flex;
-  flex-direction: column;
-  row-gap: 0.2rem;
-
+  flex-direction: row;
+  gap: 0.2rem;
+  justify-content: flex-end;
   font-size: 1rem;
   font-weight: normal;
   color: #555;
 }
 
-.form-pop input {
-  padding: 0.4rem; /* Slightly smaller padding */
-  margin-bottom: 0.8rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 0.9rem;
-  transition: border-color 0.3s ease;
-}
-
-.form-pop input:focus {
-  border-color: #1b1aff;
-  outline: none;
-}
-
-.form-pop button {
+.form-pop-remove button {
   background-color: #1b1aff;
   color: white;
-  padding: 0.6rem;
+  padding: 0.2rem 1.25rem;
   border: none;
   border-radius: 5px;
   font-size: 1rem;
@@ -75,9 +61,8 @@
   margin-top: 1rem;
 }
 
-.form-pop button:hover {
+.form-pop-remove button:hover {
   background-color: #0000ff;
-  /* transform: scale(1.05);  */
 }
 
 /* Optional: Add subtle animations for form appearance */
@@ -95,24 +80,10 @@
 .project-pop {
   animation: pop-up 0.3s ease-out; /* Smooth pop-up effect */
 }
-label {
-  font-weight: bold;
+.remove-btn {
+  background-color: #ff4d4d !important;
 }
 
-.form-pop select {
-  padding: 0.4rem; /* Same padding as the input */
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 0.9rem; /* Match the font size with other inputs */
-  background-color: white;
-  transition: border-color 0.3s ease;
-}
-
-.form-pop select:focus {
-  border-color: #1b1aff; /* Blue border on focus */
-  outline: none;
-}
-
-.form-pop select:hover {
-  cursor: pointer;
+.remove-btn:hover {
+  background-color: #e60000 !important;
 }

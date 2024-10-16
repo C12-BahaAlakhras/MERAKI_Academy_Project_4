@@ -14,9 +14,6 @@ const {
 } = require("../controllers/projectControllers");
 //
 
-
-
-
 const projectsRouter = express.Router();
 
 // ! POST
@@ -24,10 +21,15 @@ const projectsRouter = express.Router();
 // usersRouter.post("/register/admin", registerAdmin);
 // register -> http://localhost:5000/user/register
 
+// projectsRouter.post(
+//   "/:userID",
+//   authentication,
+//   authorization("ADMIN"),
+//   createNewProject
+// );
 projectsRouter.post(
   "/:userID",
-  authentication,
-  authorization("ADMIN"),
+
   createNewProject
 );
 
@@ -49,16 +51,12 @@ projectsRouter.delete(
   deleteProjectById
 );
 
-
 // add/remove/get team to project
-// get 
+// get
 projectsRouter.get("/:projectID", getTeamOFProject);
-// add 
+// add
 projectsRouter.post("/team/:projectID/:addUserID", addUserToProject);
 //delete
 projectsRouter.delete("/team/:projectID/:userID", deleteUserFromProject);
-
-
-
 
 module.exports = projectsRouter;
