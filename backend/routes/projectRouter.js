@@ -44,10 +44,15 @@ projectsRouter.put(
   updateProjectById
 );
 
+// projectsRouter.delete(
+//   "/:projectID",
+//   authentication,
+//   authorization("ADMIN"),
+//   deleteProjectById
+// );
 projectsRouter.delete(
   "/:projectID",
-  authentication,
-  authorization("ADMIN"),
+
   deleteProjectById
 );
 

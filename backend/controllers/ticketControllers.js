@@ -36,6 +36,7 @@ const createNewTicket = async (req, res) => {
       success: true,
       message: `Ticket created successfully `,
       result: updateProject,
+      newTicket: saveTicket,
     });
   } catch (err) {
     // server errors

@@ -6,8 +6,7 @@ import {
   MdLogout,
 } from "react-icons/md";
 import { FaTasks, FaTrashAlt, FaUsers } from "react-icons/fa";
-import { NavLink, useNavigate } from "react-router-dom";
-import { AppData } from "../../App";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 
 import { useAuthContext } from "../../contexts/AuthProvider";
 
@@ -34,11 +33,11 @@ const SlideBar = () => {
     setIsLogin(false);
   };
 
-  useEffect(() => {
-    if (IsLogin) return;
+  // useEffect(() => {
+  //   if (IsLogin) return;
 
-    navagite("/login");
-  }, [IsLogin]);
+  //   navagite("/login");
+  // }, [IsLogin]);
 
   return (
     <div className="h-hero bg-gray-100 p-4">
@@ -55,16 +54,17 @@ const SlideBar = () => {
             </NavLink>
           ))}
         </div>
-
-        <div>
-          <button
-            onClick={logoutBtn}
-            className="w-full flex gap-2 p-2 items-center text-lg  p-2 rounded-md text-slate-900 hover:bg-primary hover:text-white text-gray-800"
-          >
-            <MdLogout />
-            <span>Logout</span>
-          </button>
-        </div>
+        <Link to={"/login"}>
+          <div>
+            <button
+              onClick={logoutBtn}
+              className="w-full flex gap-2 p-2 items-center text-lg  p-2 rounded-md text-slate-900 hover:bg-primary hover:text-white text-gray-800"
+            >
+              <MdLogout />
+              <span>Logout</span>
+            </button>
+          </div>
+        </Link>
       </div>
     </div>
   );

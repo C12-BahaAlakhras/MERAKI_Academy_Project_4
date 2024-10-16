@@ -24,10 +24,16 @@ const ticketsRouter = express.Router();
 // );
 
 // Create Ticket
+// ticketsRouter.post(
+//   "/:userID/:projectID",
+//   authentication,
+//   authorization("ADMIN"),
+//   createNewTicket
+// );
 ticketsRouter.post(
   "/:userID/:projectID",
-  authentication,
-  authorization("ADMIN"),
+  // authentication,
+  // authorization("ADMIN"),
   createNewTicket
 );
 //Get all tickets for a specific project

@@ -23,21 +23,26 @@ const AuthProvider = ({ children }) => {
   });
 
   const [loading, setLoading] = useState(false);
-  const [showPopProjectRemove, setShowPopProjectRemove] = useState(false);
+  const [showAddTaskPop, setShowAddTaskPop] = useState(false);
+  
 
+  const [showRemoveTaskPop, setShowRemoveTaskPop] = useState(false);
+
+  const [showPopProjectRemove, setShowPopProjectRemove] = useState(false);
+  const [tickets, setTickets] = useState([]);
   const [newProject, setNewProject] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [projectID, setProjectID] = useState("");
+  const [targetProject, setTargetProject] = useState({});
 
   useEffect(() => {
     const storedIsLogin = localStorage.getItem("isLogin");
     const storedUserData = localStorage.getItem("userData");
     const storedUserToken = localStorage.getItem("token");
 
-    if (storedIsLogin) {
-      setIsLogin(storedIsLogin);
-      setUserData(storedUserData ? JSON.parse(storedUserData) : null);
-      setToken(storedUserToken);
-    }
+    setIsLogin(storedIsLogin);
+    setUserData(storedUserData ? JSON.parse(storedUserData) : null);
+    setToken(storedUserToken);
   }, []);
 
   return (
@@ -63,7 +68,17 @@ const AuthProvider = ({ children }) => {
         setNewProject,
         projects,
         setProjects,
-        showPopProjectRemove, setShowPopProjectRemove
+        showPopProjectRemove,
+        setShowPopProjectRemove,
+        projectID,
+        setProjectID,
+        tickets,
+        setTickets,
+        showAddTaskPop,
+        setShowAddTaskPop,
+        showRemoveTaskPop,
+        setShowRemoveTaskPop,
+        targetProject, setTargetProject
       }}
     >
       {children}

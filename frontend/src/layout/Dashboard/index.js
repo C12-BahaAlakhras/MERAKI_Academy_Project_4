@@ -2,7 +2,6 @@ import { Outlet, useNavigate } from "react-router-dom";
 import React, { useEffect, useContext, useState } from "react";
 import DashboardNavbar from "../../components/Navbar/DashboardNavbar";
 
-
 import SlideBar from "../../components/slideBar/SlideBar";
 import Loading from "../../components/Loading";
 import { useAuthContext } from "../../contexts/AuthProvider";
@@ -26,46 +25,66 @@ export default function DashboardLayout() {
     setIsRegister,
     loading,
     setLoading,
+    projects,
+    setProjects,
   } = useAuthContext();
-
+  // setLoading(true);
   //   const [loadingOne, setLoadingOne] = useState(false);
   // ===========================================================
 
   useEffect(() => {
+    console.log("inside settime storedUserData ==> ", userData);
     setTimeout(() => {
-      console.log("inside settime storedUserData ==> ", userData);
-    }, 800);
-    setTimeout(() => {
-      if (userData === "undefined") {
+      if (!projects) {
         return;
       } else {
         setLoading(false);
       }
-    }, 1000);
+    }, 10);
   }, []);
+
   // ===========================================================
 
   return (
     <div>
-      {loading ? (
-        <Loading />
-      ) : (
-        <>
-          <header>
-            <DashboardNavbar />
-          </header>
-          <main className="h-hero  flex">
-            <div className="w-1/6">
-              <SlideBar />
-            </div>
-            <div className="w-5/6 bg-gray-100 p-4 pl-0">
-              <div className="bg-white rounded-lg h-full p-4 overflow-y-auto custom-scrollbar">
-                <Outlet />
-              </div>
-            </div>
-          </main>
-        </>
-      )}
+      <header>
+        <DashboardNavbar />
+      </header>
+      <main className="h-hero  flex">
+        <div className="w-1/6">
+          <SlideBar />
+        </div>
+        <div className="w-5/6 bg-gray-100 p-4 pl-0">
+          <div className="bg-white rounded-lg h-full p-4 overflow-y-auto custom-scrollbar">
+            {/* {loading ? <Loading /> : <Outlet />} */}
+            {loading ? <Loading /> : <Outlet />}
+          </div>
+        </div>
+      </main>
     </div>
   );
+}
+
+{
+  /* <div>
+{loading ? (
+  <Loading />
+) : (
+  <>
+    <header>
+      <DashboardNavbar />
+    </header>
+    <main className="h-hero  flex">
+      <div className="w-1/6">
+        <SlideBar />
+      </div>
+      <div className="w-5/6 bg-gray-100 p-4 pl-0">
+        <div className="bg-white rounded-lg h-full p-4 overflow-y-auto custom-scrollbar">
+          {loading ? <Loading /> : <Outlet />}
+        </div>
+      </div>
+    </main>
+  </>
+)}
+</div> */
 }

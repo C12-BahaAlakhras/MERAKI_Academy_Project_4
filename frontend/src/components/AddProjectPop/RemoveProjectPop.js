@@ -28,45 +28,54 @@ const RemoveProjectPop = () => {
   const removeProjectbtn = () => {
     // console.log("userData._id", userData._id);
     // console.log("token", token);
-    console.log("from Remove p b idProject: ", showPopProjectRemove);
+    // console.log("from Remove p b idProject: ", showPopProjectRemove);
+    const projectID = showPopProjectRemove;
+    axios
+      .delete(`http://localhost:5000/project/${projectID}`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      .then((res) => {
+        console.log("delete  project successfully:", res.data.deletedProject);
+        setMessage(res.data.message);
+        setIsError(false);
+        //===============================
+        const deletedProjectId = res.data.deletedProject._id;
 
-    // axios
-    //   .post(`http://localhost:5000/project/:project._id`, {
-    //     headers: {
-    //       Authorization: `Bearer ${token}`,
-    //     },
-    //   })
-    //   .then((res) => {
-    //     // console.log("create new project successfully:", res.data);
-    //     setMessage(res.data.message);
-    //     setIsError(false);
-    //     //===============================
-    //     // const newProjectId = res.data.projectId;
+        // Update the userData to reflect the deleted project in the boardProjects (if necessary)
+        const updatedUserData = {
+          ...userData,
+          userBoard: {
+            ...userData.userBoard,
+            // Remove the project ID from boardProjects instead of adding it
+            boardProjects: userData.userBoard.boardProjects.filter(
+              (projectId) => projectId !== deletedProjectId
+            ),
+          },
+        };
+        setUserData(updatedUserData);
 
-    //     // const updatedUserData = {
-    //     //   ...userData,
-    //     //   userBoard: {
-    //     //     ...userData.userBoard,
-    //     //     boardProjects: [...userData.userBoard.boardProjects, newProjectId],
-    //     //   },
-    //     // };
-    //     // setUserData(updatedUserData);
-    //     // // console.log(userData)
-    //     // setUserData(updatedUserData);
-    //     // localStorage.setItem("userData", JSON.stringify(updatedUserData));
-    //     // setProjects([...projects, res.data.newProject]);
+        // Remove the deleted project from the projects array
+        const updatedProjects = projects.filter(
+          (project) => project._id !== deletedProjectId
+        );
+        setProjects(updatedProjects);
 
-    //     //================================
-    //     setTimeout(() => {
-    //       setShowProjectPop(false);
-    //     }, 500);
-    //   })
-    //   .catch((err) => {
-    //     console.log("create new project error:", err);
-    //     setMessage(err.response.data.message);
-    //     setIsError(true);
-    //     setShowPopProjectRemove(true);
-    //   });
+        // Store updated user data in localStorage
+        localStorage.setItem("userData", JSON.stringify(updatedUserData));
+
+        //================================
+        setTimeout(() => {
+          setShowPopProjectRemove(false);
+        }, 500);
+      })
+      .catch((err) => {
+        console.log("delete  project error:", err);
+        setMessage(err.response.data.message);
+        setIsError(true);
+        // setShowPopProjectRemove(true);
+      });
   };
 
   useEffect(() => {

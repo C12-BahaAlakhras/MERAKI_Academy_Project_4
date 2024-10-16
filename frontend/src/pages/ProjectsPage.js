@@ -33,7 +33,7 @@ const ProjectsPage = () => {
   //===========================================================
 
   useEffect(() => {
-    console.log("bahaaaaaaaaaa");
+    // console.log("bahaaaaaaaaaa");
   }, [showProjectPop]);
 
   return (
@@ -44,7 +44,7 @@ const ProjectsPage = () => {
         <>
           <div className="add-project-div">
             <Link className="text-sky-600" to="/dashboard">
-              Projects /
+              Projects 
             </Link>
             <button
               onClick={showPopAddProjectBtn}
