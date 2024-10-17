@@ -6,45 +6,41 @@ import { useAuthContext } from "../contexts/AuthProvider";
 import RemoveTaskPop from "../components/PopForTickets/RemoveTaskPop";
 import "./Tasks.css";
 
-const Tasks = () => {
+const CompletedTask = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    projects,
-    token,
-    projectID,
-    tickets,
-    setTickets,
-    showRemoveTaskPop,
     setShowRemoveTaskPop,
     allTasks,
     setAllTasks,
     userData,
     setUserData,
+    allTasksCompleted,
+    setAllTasksCompleted,
+    allTasksToDo,
+    setAllTasksToDo,
+    allTasksInProgress,
+    setAllTasksInProgress,
   } = useAuthContext();
 
   useEffect(() => {
     const userId = userData._id;
-    // http://localhost:5000/ticket/user/670ee4a022cf3719e1f0e296
+
     axios
-      .get(`  http://localhost:5000/ticket/user/${userId}`)
+      .get(`http://localhost:5000/ticket/user/${userId}`)
       .then((res) => {
         setMessage(res.data.message);
         setIsError(false);
 
         const allTasksArray = res.data.result;
 
-        // console.log("allTasksArray", allTasksArray);
-        // const storedAllTasks = localStorage.setItem("allTasks", allTasksArray);
+        const completedTicket = allTasksArray.filter((ticket) => {
+          return ticket.ticketStatus === "Completed";
+        });
 
-        setAllTasks(allTasksArray);
-
-        // console.log(allTasks)
-        console.log("allTasks", allTasks);
-
-        //===============================
-
+        // console.log("completedTicket", completedTicket);
+        setAllTasksCompleted(completedTicket);
         //================================
       })
       .catch((err) => {
@@ -56,7 +52,7 @@ const Tasks = () => {
   return (
     <>
       <div className="tasks-container">
-        <h1 className="font-black">Task List</h1>
+        <h1 className="font-black">Completed Task List</h1>
         <table className="tasks-table">
           <thead>
             <tr className="bg-slate-900 text-white">
@@ -68,7 +64,7 @@ const Tasks = () => {
             </tr>
           </thead>
           <tbody>
-            {allTasks?.map((ticket) => (
+            {allTasksCompleted?.map((ticket) => (
               <tr key={ticket._id}>
                 <td>{ticket.ticketTitle}</td>
                 <td>{ticket.ticketDescription}</td>
@@ -98,4 +94,4 @@ const Tasks = () => {
   );
 };
 
-export default Tasks;
+export default CompletedTask;

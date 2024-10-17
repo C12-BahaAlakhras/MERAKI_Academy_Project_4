@@ -7,33 +7,32 @@ import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 const TaskDetails = () => {
-  const nameOfProject = () => {
-    const targetProject = projects.find((project) => {
-      return project._id === projectID;
-    });
-    return targetProject?.projectName;
-  };
+  // const nameOfProject = () => {
+  //   const targetProject = projects.find((project) => {
+  //     return project._id === projectID;
+  //   });
+  //   return targetProject?.projectName;
+  // };
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    userData,
-    setUserData,
     projects,
-    setProjects,
-    showPopProjectRemove,
-    setShowPopProjectRemove,
     token,
-    setToken,
     projectID,
-    setProjectID,
     tickets,
     setTickets,
-    showAddTaskPop,
-    setShowAddTaskPop,
     showRemoveTaskPop,
     setShowRemoveTaskPop,
   } = useAuthContext();
+
+  // ===========================================================
+  const deleteTaskBtn = (taskID) => {
+    setShowRemoveTaskPop(taskID);
+    console.log("from deleteTaskBtn taskID: ", taskID);
+  };
+  //===========================================================
+
   useEffect(() => {
     const projectId = projectID;
     // console.log("test token ==>", token);
@@ -44,6 +43,7 @@ const TaskDetails = () => {
         setMessage(res.data.message);
         setIsError(false);
         setTickets(res.data.result);
+        
         // setProjects(res.data.result);
       })
       .catch((err) => {
@@ -128,7 +128,7 @@ const TaskDetails = () => {
 
                 <button
                   onClick={() => {
-                    // deleteProjectBtn(project._id);
+                    deleteTaskBtn(task._id);
                   }}
                   className="bg-red-500 text-white py-1 px-2 rounded-full hover:bg-red-600 transition duration-200 flex items-center"
                 >

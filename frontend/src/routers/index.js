@@ -10,6 +10,9 @@ import ProjectsPage from "../pages/ProjectsPage";
 import Tasks from "../pages/Tasks";
 import Users from "../pages/Users";
 import ProjectPageDetails from "../pages/ProjectPageDetails";
+import CompletedTask from "../pages/CompletedTask";
+import InProgressTasks from "../pages/InProgressTasks";
+import ToDoTasks from "../pages/ToDoTasks";
 
 export const router = createBrowserRouter([
   {
@@ -39,8 +42,8 @@ export const router = createBrowserRouter([
         element: <ProjectsPage />,
       },
       {
-        path: "project/:projectId",  
-        element: <ProjectPageDetails/>,  
+        path: "project/:projectId",
+        element: <ProjectPageDetails />,
       },
       {
         path: "tasks",
@@ -48,15 +51,15 @@ export const router = createBrowserRouter([
       },
       {
         path: "in-progress",
-        element: <Dashboard />,
+        element: <InProgressTasks />,
       },
       {
         path: "completed",
-        element: <Dashboard />,
+        element: <CompletedTask />,
       },
       {
         path: "todo",
-        element: <Dashboard />,
+        element: <ToDoTasks />,
       },
       {
         path: "team",

@@ -1,7 +1,7 @@
 const express = require("express");
-// const BoardModel = require("../models/boardSchema");
+const BoardModel = require("../models/boardSchema");
 const ProjectModel = require("../models/projectSchema");
-// const UserModel = require("../models/userSchema");
+const UserModel = require("../models/userSchema");
 const TicketModel = require("../models/ticketSchema");
 
 const createNewTicket = async (req, res) => {
@@ -65,6 +65,47 @@ const getAllTickets = async (req, res) => {
       success: true,
       message: `get tickets success`,
       result: arrayOfTickets,
+    });
+  } catch (err) {
+    // server errors
+    res.status(500).json({
+      success: false,
+      message: `Server Error`,
+      error: err.message,
+    });
+  }
+};
+
+// ticketsRouter.get("/user/:userID", getAllTicketsByUserId);
+
+// get all ticket in for by userid
+const getAllTicketsByUserId = async (req, res) => {
+  userID = req.params.userID;
+
+  try {
+    const targetUser = await UserModel.findById(userID).exec();
+    const idBoard = targetUser.userBoard;
+    const targetBoard = await BoardModel.findById(idBoard)
+      .populate({
+        path: "boardProjects", // Populate boardProjects from the board
+        populate: {
+          path: "projectTickets", // Populate projectTickets within each project
+        },
+      })
+      .exec();
+
+    // Extract all tickets from the populated projects
+    const arryOfProjects = targetBoard.boardProjects;
+    const allTickets = arryOfProjects.flatMap(
+      (project) => project.projectTickets
+    );
+
+    
+
+    res.status(200).json({
+      success: true,
+      message: `get all user tickets success`,
+      result: allTickets,
     });
   } catch (err) {
     // server errors
@@ -262,4 +303,5 @@ module.exports = {
   getTeamOFTicket,
   addUserToTicket,
   deleteUserFromTicket,
+  getAllTicketsByUserId,
 };

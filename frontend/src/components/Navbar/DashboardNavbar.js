@@ -13,22 +13,8 @@ import { useAuthContext } from "../../contexts/AuthProvider";
 const DashboardNavbar = () => {
   //===========================================================
 
-  const {
-    token,
-    setToken,
-    userLogin,
-    setUserLogin,
-    darkMode,
-    setDarkMode,
-    userData,
-    setUserData,
-    IsLogin,
-    setIsLogin,
-    IsRegister,
-    setIsRegister,
-    loading,
-    setLoading,
-  } = useAuthContext();
+  const { setToken, darkMode, setDarkMode, userData, setUserData, setIsLogin } =
+    useAuthContext();
   // ===========================================================
   let firstLetter = userData?.fullName
     ? userData.fullName.charAt(0).toUpperCase()

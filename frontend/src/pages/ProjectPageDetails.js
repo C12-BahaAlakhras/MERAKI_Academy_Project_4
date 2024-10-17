@@ -8,6 +8,7 @@ import ProjectPop from "../components/AddProjectPop/ProjectPop";
 import RemoveProjectPop from "../components/AddProjectPop/RemoveProjectPop";
 import TaskDetails from "../components/task/TaskDetails";
 import AddTaskPop from "../components/PopForTickets/addTaskPop";
+import RemoveTaskPop from "../components/PopForTickets/RemoveTaskPop";
 
 const ProjectPageDetails = () => {
   const [message, setMessage] = useState("");
@@ -44,9 +45,9 @@ const ProjectPageDetails = () => {
     setShowAddTaskPop(true);
   };
 
-  useEffect(() => {
-    console.log(token);
-  }, [token]);
+  // useEffect(() => {
+  //   console.log(token);
+  // }, [token]);
 
 
   return (
@@ -71,7 +72,7 @@ const ProjectPageDetails = () => {
           </div>
 
           {showAddTaskPop ? <AddTaskPop /> : null}
-          {showRemoveTaskPop ? <RemoveProjectPop /> : null}
+          {showRemoveTaskPop ? <RemoveTaskPop /> : null}
         </>
       )}
     </>

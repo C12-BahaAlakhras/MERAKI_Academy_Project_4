@@ -24,7 +24,6 @@ const AuthProvider = ({ children }) => {
 
   const [loading, setLoading] = useState(false);
   const [showAddTaskPop, setShowAddTaskPop] = useState(false);
-  
 
   const [showRemoveTaskPop, setShowRemoveTaskPop] = useState(false);
 
@@ -32,6 +31,13 @@ const AuthProvider = ({ children }) => {
   const [tickets, setTickets] = useState([]);
   const [newProject, setNewProject] = useState([]);
   const [projects, setProjects] = useState([]);
+  const [allTasks, setAllTasks] = useState([]);
+  const [allTasksCompleted, setAllTasksCompleted] = useState([]);
+
+  const [allTasksInProgress, setAllTasksInProgress] = useState([]);
+
+  const [allTasksToDo, setAllTasksToDo] = useState([]);
+
   const [projectID, setProjectID] = useState("");
   const [targetProject, setTargetProject] = useState({});
 
@@ -39,10 +45,12 @@ const AuthProvider = ({ children }) => {
     const storedIsLogin = localStorage.getItem("isLogin");
     const storedUserData = localStorage.getItem("userData");
     const storedUserToken = localStorage.getItem("token");
+    // const storedAllTasks = localStorage.getItem("allTasks");
 
     setIsLogin(storedIsLogin);
     setUserData(storedUserData ? JSON.parse(storedUserData) : null);
     setToken(storedUserToken);
+    // setAllTasks(storedAllTasks);
   }, []);
 
   return (
@@ -78,7 +86,16 @@ const AuthProvider = ({ children }) => {
         setShowAddTaskPop,
         showRemoveTaskPop,
         setShowRemoveTaskPop,
-        targetProject, setTargetProject
+        targetProject,
+        setTargetProject,
+        allTasks,
+        setAllTasks,
+        allTasksCompleted,
+        setAllTasksCompleted,
+        allTasksToDo,
+        setAllTasksToDo,
+        allTasksInProgress,
+        setAllTasksInProgress,
       }}
     >
       {children}

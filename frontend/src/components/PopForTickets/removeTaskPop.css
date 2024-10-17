@@ -1,0 +1,90 @@
+.project-pop {
+    width: 30%; /* Reduced size */
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    background: #f5f5f5;
+    border-radius: 15px;
+    position: fixed; /* Fixed to center on screen */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centers the form */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2); /* Soft shadow for elegance */
+    font-family: Arial, sans-serif; /* Cleaner font */
+  }
+  
+  .title-pop {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 15px;
+    font-size: 1.2rem; /* Reduced size */
+    font-weight: bold;
+    color: #333;
+  }
+  
+  .title-pop button {
+    background-color: #ff4d4d; /* Red background for close button */
+    border: none;
+    font-size: 1rem; /* Reduced size */
+    color: white;
+    border-radius: 50%; /* Circular button */
+    width: 30px;
+    height: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .title-pop button:hover {
+    background-color: #e60000;
+  }
+  
+  .form-pop-remove {
+    display: flex;
+    flex-direction: row;
+    gap: 0.2rem;
+    justify-content: flex-end;
+    font-size: 1rem;
+    font-weight: normal;
+    color: #555;
+  }
+  
+  .form-pop-remove button {
+    background-color: #1b1aff;
+    color: white;
+    padding: 0.2rem 1.25rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    margin-top: 1rem;
+  }
+  
+  .form-pop-remove button:hover {
+    background-color: #0000ff;
+  }
+  
+  /* Optional: Add subtle animations for form appearance */
+  @keyframes pop-up {
+    0% {
+      transform: translate(-50%, -50%) scale(0.95);
+      opacity: 0;
+    }
+    100% {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+  }
+  
+  .project-pop {
+    animation: pop-up 0.3s ease-out; /* Smooth pop-up effect */
+  }
+  .remove-btn {
+    background-color: #ff4d4d !important;
+  }
+  
+  .remove-btn:hover {
+    background-color: #e60000 !important;
+  }
+  

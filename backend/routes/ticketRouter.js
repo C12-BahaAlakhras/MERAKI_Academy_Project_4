@@ -11,6 +11,7 @@ const {
   getTeamOFTicket,
   addUserToTicket,
   deleteUserFromTicket,
+  getAllTicketsByUserId,
 } = require("../controllers/ticketControllers");
 //
 const ticketsRouter = express.Router();
@@ -38,6 +39,10 @@ ticketsRouter.post(
 );
 //Get all tickets for a specific project
 ticketsRouter.get("/project/:projectID", getAllTickets);
+
+//Get all tickets for a specific user
+ticketsRouter.get("/user/:userID", getAllTicketsByUserId);
+
 //Get ticket by ID
 ticketsRouter.get("/:ticketID", getTicketsById);
 // delete Specific ticket
