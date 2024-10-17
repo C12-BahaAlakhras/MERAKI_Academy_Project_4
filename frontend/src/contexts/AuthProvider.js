@@ -37,9 +37,12 @@ const AuthProvider = ({ children }) => {
   const [allTasksInProgress, setAllTasksInProgress] = useState([]);
 
   const [allTasksToDo, setAllTasksToDo] = useState([]);
+  const [teamMembers, setTeamMembers] = useState([]);
 
   const [projectID, setProjectID] = useState("");
   const [targetProject, setTargetProject] = useState({});
+  const [showAddUserPop, setShowAddUserPop] = useState(false);
+  const [showRemoveUserPop, setShowRemoveUserPop] = useState(false);
 
   useEffect(() => {
     const storedIsLogin = localStorage.getItem("isLogin");
@@ -96,6 +99,12 @@ const AuthProvider = ({ children }) => {
         setAllTasksToDo,
         allTasksInProgress,
         setAllTasksInProgress,
+        teamMembers,
+        setTeamMembers,
+        showAddUserPop,
+        setShowAddUserPop,
+        showRemoveUserPop,
+        setShowRemoveUserPop,
       }}
     >
       {children}

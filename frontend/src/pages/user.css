@@ -1,0 +1,64 @@
+/* Updated UserStyles.css */
+
+/* .user-table-container {
+    padding: 20px;
+  } */
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+}
+
+.user-table th,
+.user-table td {
+  padding: 8px;
+  text-align: left;
+  background-color: #f5f5f5;
+  color: black;
+  border-bottom: 1px solid #ddd;
+  border-right: 1px solid #ddd;
+}
+
+.user-table-header {
+  background-color: #000 !important;
+  color: white !important;
+}
+
+.user-table-row {
+  background-color: #f5f5f5;
+}
+
+.user-delete-icon {
+  color: red;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+.user-delete-icon:hover {
+  color: darkred;
+}
+
+.user-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.user-back-link {
+  color: #1e90ff;
+  text-decoration: none;
+}
+
+.user-add-btn {
+  background-color: #007bff;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.user-add-btn:hover {
+  background-color: #0056b3;
+}
+

@@ -27,12 +27,14 @@ usersRouter.post("/register", register);
 // login -> http://localhost:5000/user/login
 usersRouter.post("/login", login);
 // add user in board -> http://localhost:5000/user/:adminId/addteam
-usersRouter.post(
-  "/:adminID/addteam",
-  authentication,
-  authorization("ADMIN"),
-  AddTeamtoBoard
-);
+// usersRouter.post(
+//   "/:adminID/addteam",
+//   authentication,
+//   authorization("ADMIN"),
+//   AddTeamtoBoard
+// );
+
+usersRouter.post("/:adminID/addteam", AddTeamtoBoard);
 //====================================================================================
 // ! GET
 
