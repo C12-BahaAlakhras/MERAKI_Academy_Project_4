@@ -35,12 +35,14 @@ const Users = () => {
 
   useEffect(() => {
     const userId = userData._id;
+    console.log("userId =======>", userId);
 
     axios
       .get(`http://localhost:5000/users/${userId}`)
       .then((res) => {
         setMessage(res.data.message);
         setIsError(false);
+
         setTeamMembers(res.data.result);
       })
       .catch((err) => {
@@ -80,12 +82,13 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
+            {console.log(teamMembers)}
             {teamMembers.map((user) => (
               <tr key={user._id} className="user-table-row">
                 <td>{user.fullName}</td>
                 <td>{user.position}</td>
                 <td>{user.email}</td>
-                <td>
+                <td className="user-delete-cell">
                   <MdDelete
                     className="user-delete-icon"
                     onClick={() => handleDelete(user._id)}

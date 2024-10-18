@@ -184,7 +184,7 @@ const allUsersInBoard = async (req, res) => {
     // console.log("id ======> ", id);
     const targetBoard = await BoardModel.findById({
       _id: boardOwner.userBoard,
-    });
+    }).populate("boardMembers");
     const memberArray = targetBoard.boardMembers;
 
     res.status(200).json({

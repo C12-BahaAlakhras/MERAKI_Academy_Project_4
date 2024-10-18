@@ -22,6 +22,8 @@ const ProjectDetails = () => {
     setToken,
     projectID,
     setProjectID,
+    teamMembers,
+    setTeamMembers,
   } = useAuthContext();
   // ===========================================================
   const deleteProjectBtn = (idProject) => {
@@ -78,33 +80,8 @@ const ProjectDetails = () => {
               <span className="text-gray-500">Priority: </span>
               {project.projectPriority}
             </p>
-            <div className="mb-4 flex items-center justify-between border-t border-b border-gray-200 py-3">
-              <div className="flex items-center">
-                {userData.userBoard?.boardMembers?.length > 0 ? (
-                  projects.map((user, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center mr-1 rounded-full"
-                      style={{ backgroundColor: "#1b1aff" }}
-                    >
-                      <div className="w-8 h-8 flex items-center justify-center rounded-full text-white font-bold">
-                        {user.projectName.charAt(0).toUpperCase()}
-                        {/* First letter of the user's name */}
-                      </div>
-                    </div>
-                  ))
-                ) : (
-                  <p className="text-gray-500 text-sm">
-                    No Team assigned to this project
-                  </p>
-                )}
-              </div>
-              {/* Add User Button */}
-              <button className="flex items-center text-blue-500  ml-2 ">
-                <CgAdd className="text-lg" />
-              </button>
-            </div>
 
+            {/* here if you want users */}
             <div className="flex justify-between mt-10">
               <button
                 onClick={() => viewProjectPageDetiles(project._id)}
@@ -130,3 +107,32 @@ const ProjectDetails = () => {
 };
 
 export default ProjectDetails;
+
+{
+  /* <div className="mb-4 flex items-center justify-between border-t border-b border-gray-200 py-3">
+              <div className="flex items-center">
+                {userData.userBoard?.boardMembers?.length > 0 ? (
+                  teamMembers.map((user, index) => (
+                    <div
+                      key={index}
+                      className="flex items-center mr-1 rounded-full"
+                      style={{ backgroundColor: "#1b1aff" }}
+                    >
+                      <div className="w-8 h-8 flex items-center justify-center rounded-full text-white font-bold">
+                        {user.fullName.charAt(0).toUpperCase()}
+                      
+                        </div>
+                        </div>
+                      ))
+                    ) : (
+                      <p className="text-gray-500 text-sm">
+                        No Team assigned to this project
+                      </p>
+                    )}
+                  </div>
+           
+                  <button className="flex items-center text-blue-500  ml-2 ">
+                    <CgAdd className="text-lg" />
+                  </button>
+                </div> */
+}

@@ -39,12 +39,14 @@ usersRouter.post("/:adminID/addteam", AddTeamtoBoard);
 // ! GET
 
 // get all users based on specific board -> http://localhost:5000/user/:boardID
-usersRouter.get(
-  "/:adminID",
-  authentication,
-  authorization("ADMIN"),
-  allUsersInBoard
-);
+// usersRouter.get(
+//   "/:adminID",
+//   authentication,
+//   authorization("ADMIN"),
+//   allUsersInBoard
+// );
+
+usersRouter.get("/:adminID", allUsersInBoard);
 // get all users based on specific project -> http://localhost:5000/user/:boardID/:projectID
 // usersRouter.get("/:adminID/:projectID", allUsersInProject);
 // get all users based on specific project -> http://localhost:5000/user/:projectID/:ticketId

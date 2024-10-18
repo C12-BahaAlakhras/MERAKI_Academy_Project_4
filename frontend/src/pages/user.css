@@ -62,3 +62,18 @@
   background-color: #0056b3;
 }
 
+.user-table-header {
+  background-color: black;
+  color: white;
+}
+
+.user-table th {
+  background-color: black;
+  color: white;
+}
+.user-delete-cell {
+  display: flex;
+  justify-content: center; 
+  align-items: center;     
+  height: 100%; ;
+}

@@ -24,6 +24,8 @@ const TaskDetails = () => {
     setTickets,
     showRemoveTaskPop,
     setShowRemoveTaskPop,
+    teamMembers,
+    setTeamMembers,
   } = useAuthContext();
 
   // ===========================================================
@@ -43,7 +45,7 @@ const TaskDetails = () => {
         setMessage(res.data.message);
         setIsError(false);
         setTickets(res.data.result);
-        
+
         // setProjects(res.data.result);
       })
       .catch((err) => {
@@ -51,6 +53,30 @@ const TaskDetails = () => {
         setIsError(true);
       });
   }, [token]);
+
+  const handleUserSelection = (userId, taskId) => {
+    // Find the target ticket
+    const targetTicket = tickets.find((ticket) => ticket._id === taskId);
+
+    // Find the selected user
+    const targetUser = teamMembers.find((user) => user._id === userId);
+
+    // Check if the user already exists in assigneeTo
+    if (!targetTicket.assigneeTo.some((user) => user._id === userId)) {
+      // Update the ticket with the new user
+      const updatedTicket = {
+        ...targetTicket,
+        assigneeTo: [...targetTicket.assigneeTo, targetUser],
+      };
+
+      // Update the tickets array with the modified ticket
+      setTickets(
+        tickets.map((ticket) =>
+          ticket._id === taskId ? updatedTicket : ticket
+        )
+      );
+    }
+  };
 
   return (
     <>
@@ -93,15 +119,15 @@ const TaskDetails = () => {
               </p>
               <div className="mb-4 flex items-center justify-between border-t border-b border-gray-200 py-3">
                 <div className="flex items-center">
-                  {tickets.assigneeTo?.length > 0 ? (
-                    tickets.map((task, index) => (
+                  {task.assigneeTo.length > 0 ? (
+                    task.assigneeTo.map((user, index) => (
                       <div
                         key={index}
                         className="flex items-center mr-1 rounded-full"
                         style={{ backgroundColor: "#1b1aff" }}
                       >
                         <div className="w-8 h-8 flex items-center justify-center rounded-full text-white font-bold">
-                          {task.assigneeTo.charAt(0).toUpperCase()}
+                          {user.fullName.charAt(0).toUpperCase()}
                           {/* First letter of the user's name */}
                         </div>
                       </div>
@@ -112,19 +138,35 @@ const TaskDetails = () => {
                     </p>
                   )}
                 </div>
-                {/* Add User Button */}
-                <button className="flex items-center text-blue-500  ml-2 ">
-                  <CgAdd className="text-lg" />
-                </button>
+             
               </div>
 
               <div className="flex justify-between mt-10">
-                <button
+                <select
+                  className="bg-white text-black text-sm border border-gray-300 py-1 px-1 pr-20 rounded hover:border-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-300 transition duration-200"
+                  onChange={(e) =>
+                    handleUserSelection(e.target.value, task._id)
+                  }
+                >
+                  <option value="" disabled selected>
+                    Select Member
+                  </option>
+                  {teamMembers.map((user) => (
+                    <option
+                      key={user._id}
+                      value={user._id}
+                      className="text-black"
+                    >
+                      {user.fullName.toUpperCase()}
+                    </option>
+                  ))}
+                </select>
+                {/* <button
                   //   onClick={() => viewProjectPageDetiles(project._id)}
                   className="bg-blue-500 text-white py-1 px-6 rounded hover:bg-blue-600 transition duration-200"
                 >
                   View
-                </button>
+                </button> */}
 
                 <button
                   onClick={() => {
