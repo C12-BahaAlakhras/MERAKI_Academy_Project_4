@@ -49,27 +49,12 @@ const RemoveTaskPop = () => {
         //===============================
         const deletedTaskId = res.data.result._id;
 
-        // // Update the userData to reflect the deleted project in the boardProjects (if necessary)
-        // const updatedUserData = {
-        //   ...userData,
-        //   userBoard: {
-        //     ...userData.userBoard,
-        //     // Remove the project ID from boardProjects instead of adding it
-        //     boardProjects: userData.userBoard.boardProjects.filter(
-        //       (projectId) => projectId !== deletedProjectId
-        //     ),
-        //   },
-        // };
-        // setUserData(updatedUserData);
-
-        // Remove the deleted ticket from the tickets array
         const updatedTickets = tickets.filter(
           (ticket) => ticket._id !== deletedTaskId
         );
         setTickets(updatedTickets);
 
-        // // Store updated user data in localStorage
-        // localStorage.setItem("userData", JSON.stringify(updatedUserData));
+
 
         //================================
         setTimeout(() => {

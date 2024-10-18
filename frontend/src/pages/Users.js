@@ -56,8 +56,9 @@ const Users = () => {
   };
 
   const handleDelete = (id) => {
-    // Add delete functionality here
+    
     console.log("Delete user with id:", id);
+    setShowRemoveUserPop(id)
   };
 
   return (
