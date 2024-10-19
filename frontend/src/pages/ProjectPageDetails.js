@@ -15,24 +15,12 @@ const ProjectPageDetails = () => {
   const [isError, setIsError] = useState(false);
 
   const {
-    newProject,
-    setNewProject,
     loading,
-    setLoading,
-    showProjectPop,
-    setShowProjectPop,
-    showPopProjectRemove,
-    setShowPopProjectRemove,
     projects,
-    setProjects,
     projectID,
-    setProjectID,
-    token,
     showAddTaskPop,
     setShowAddTaskPop,
     showRemoveTaskPop,
-    setShowRemoveTaskPop,
-    targetProject,
     setTargetProject,
   } = useAuthContext();
 
@@ -45,9 +33,6 @@ const ProjectPageDetails = () => {
     setShowAddTaskPop(true);
   };
 
-  // useEffect(() => {
-  //   console.log(token);
-  // }, [token]);
 
 
   return (

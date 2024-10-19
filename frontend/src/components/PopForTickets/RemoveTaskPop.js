@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 
 import { useAuthContext } from "../../contexts/AuthProvider";
-import Loading from "../Loading";
+
 import axios from "axios";
 import "./removeTaskPop.css";
 
@@ -9,18 +9,7 @@ const RemoveTaskPop = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    showProjectPop,
-    setShowProjectPop,
-    newProject,
-    setNewProject,
-    projects,
-    setProjects,
-    userData,
-    setUserData,
     token,
-    setToken,
-    showPopProjectRemove,
-    setShowPopProjectRemove,
     showRemoveTaskPop,
     setShowRemoveTaskPop,
     tickets,
@@ -53,8 +42,6 @@ const RemoveTaskPop = () => {
           (ticket) => ticket._id !== deletedTaskId
         );
         setTickets(updatedTickets);
-
-
 
         //================================
         setTimeout(() => {

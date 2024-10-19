@@ -4,7 +4,6 @@ import NotFound from "../pages/NotFound";
 import Home from "../pages/Home";
 import RegisterPage from "../pages/registerPage/RegisterPage";
 import LoginPage from "../pages/registerPage/LoginPage";
-import Dashboard from "../pages/dashboardPage/Dashboard";
 import DashboardLayout from "../layout/Dashboard";
 import ProjectsPage from "../pages/ProjectsPage";
 import Tasks from "../pages/Tasks";

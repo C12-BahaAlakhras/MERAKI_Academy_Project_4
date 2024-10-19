@@ -9,26 +9,15 @@ const RemoveUserPop = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    showProjectPop,
-    setShowProjectPop,
-    newProject,
-    setNewProject,
-    projects,
-    setProjects,
     userData,
-    setUserData,
+
     token,
-    setToken,
-    showPopProjectRemove,
-    setShowPopProjectRemove,
-    showRemoveTaskPop,
+
     setShowRemoveTaskPop,
-    tickets,
-    setTickets,
+
     teamMembers,
     setTeamMembers,
-    showAddUserPop,
-    setShowAddUserPop,
+
     showRemoveUserPop,
     setShowRemoveUserPop,
   } = useAuthContext();

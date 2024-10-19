@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./addTaskPop.css";
 import { useAuthContext } from "../../contexts/AuthProvider";
-import Loading from "../Loading";
+
 import axios from "axios";
 // projectName, projectDescription, projectPriority
 const AddTaskPop = () => {
@@ -10,22 +10,14 @@ const AddTaskPop = () => {
   const [newTask, setNewTask] = useState({});
 
   const {
-    showProjectPop,
-    setShowProjectPop,
-    newProject,
-    setNewProject,
-    projects,
-    setProjects,
     userData,
-    setUserData,
+
     token,
-    setToken,
-    showAddTaskPop,
+
     setShowAddTaskPop,
-    showRemoveTaskPop,
-    setShowRemoveTaskPop,
+
     projectID,
-    setProjectID,
+
     targetProject,
     setTargetProject,
     tickets,
@@ -49,11 +41,6 @@ const AddTaskPop = () => {
     setShowAddTaskPop(false);
   };
   const createTasktbtn = () => {
-    // console.log("userData._id", userData._id);
-    // console.log("prjectId", projectID);
-
-    // console.log("token", token);
-
     axios
       .post(
         `http://localhost:5000/ticket/${userData._id}/${projectID}`,
@@ -80,26 +67,12 @@ const AddTaskPop = () => {
         // Add the new task to the tickets array in the context
         setTickets([...tickets, res.data.newTicket]);
 
-        // console.log("tickets from add task pop", tickets);
-
-        // const updateProjectData = {
-        //   ...targetProject,
-
-        //   projectTickets: [...targetProject.projectTickets, newTask],
-        // };
-        // setTargetProject(updateProjectData);
-
-        // setUserData(updatedUserData);
-        // localStorage.setItem("userData", JSON.stringify(updatedUserData));
-        // setProjects([...projects, res.data.newProject]);
-
         //================================
         setTimeout(() => {
           setShowAddTaskPop(false);
         }, 500);
       })
       .catch((err) => {
-        console.log("create new task error:", err);
         setMessage(err.response.data.message);
         setIsError(true);
         setShowAddTaskPop(true);
@@ -107,7 +80,7 @@ const AddTaskPop = () => {
   };
 
   useEffect(() => {
-    console.log("updated targetProject:", targetProject);
+    // console.log("updated targetProject:", targetProject);
     //   console.log("userData projects:", projects);
   }, [targetProject]);
 

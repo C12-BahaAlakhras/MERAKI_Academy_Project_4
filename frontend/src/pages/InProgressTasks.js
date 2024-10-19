@@ -1,5 +1,3 @@
-
-
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
@@ -13,15 +11,8 @@ const InProgressTasks = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    setShowRemoveTaskPop,
-    allTasks,
-    setAllTasks,
     userData,
-    setUserData,
-    allTasksCompleted,
-    setAllTasksCompleted,
-    allTasksToDo,
-    setAllTasksToDo,
+
     allTasksInProgress,
     setAllTasksInProgress,
   } = useAuthContext();
@@ -97,4 +88,3 @@ const InProgressTasks = () => {
 };
 
 export default InProgressTasks;
-

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { useAuthContext } from "../../contexts/AuthProvider";
-import Loading from "../Loading";
+
 import axios from "axios";
 import "./removeProjectPop.css";
 
@@ -9,16 +9,11 @@ const RemoveProjectPop = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    showProjectPop,
-    setShowProjectPop,
-    newProject,
-    setNewProject,
     projects,
     setProjects,
     userData,
     setUserData,
     token,
-    setToken,
     showPopProjectRemove,
     setShowPopProjectRemove,
   } = useAuthContext();
@@ -26,9 +21,7 @@ const RemoveProjectPop = () => {
     setShowPopProjectRemove(false);
   };
   const removeProjectbtn = () => {
-    // console.log("userData._id", userData._id);
-    // console.log("token", token);
-    // console.log("from Remove p b idProject: ", showPopProjectRemove);
+ 
     const projectID = showPopProjectRemove;
     axios
       .delete(`http://localhost:5000/project/${projectID}`, {
@@ -79,8 +72,8 @@ const RemoveProjectPop = () => {
   };
 
   useEffect(() => {
-    console.log("userData updated:", userData);
-    console.log("userData projects:", projects);
+    // console.log("userData updated:", userData);
+    // console.log("userData projects:", projects);
   }, [userData]);
 
   return (

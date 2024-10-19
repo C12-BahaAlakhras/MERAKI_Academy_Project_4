@@ -1,11 +1,10 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { FaSun, FaMoon } from "react-icons/fa";
-// import { AppData } from "../App";
+
 import { useAuthContext } from "../contexts/AuthProvider";
 
 const Home = () => {
-  const { darkMode, setDarkMode } = useAuthContext();
+  const { darkMode } = useAuthContext();
 
   useEffect(() => {
     if (darkMode) {

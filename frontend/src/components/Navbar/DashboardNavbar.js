@@ -1,12 +1,8 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-// import { AppData } from "../../App";
+import React, { useEffect } from "react";
+
 import { FaSun, FaMoon } from "react-icons/fa";
 import { MdNotifications } from "react-icons/md";
 import "./DashboardNavbar.css";
-import Loading from "../Loading";
-import AuthProvider from "../../contexts/AuthProvider";
 
 import { useAuthContext } from "../../contexts/AuthProvider";
 

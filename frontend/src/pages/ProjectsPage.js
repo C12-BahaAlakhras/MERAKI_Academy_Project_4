@@ -1,14 +1,9 @@
-import React, { useState, useEffect, useContext } from "react";
-import axios from "axios";
-import { Link, useNavigate } from "react-router-dom";
-// import { AppData } from "../App";
-import { FaSun, FaMoon } from "react-icons/fa";
-import { MdNotifications } from "react-icons/md";
+import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import "./projectPage.css";
-
 import Loading from "../components/Loading";
 import ProjectDetails from "../components/project/ProjectDetails";
-import AuthProvider, { useAuthContext } from "../contexts/AuthProvider";
+import { useAuthContext } from "../contexts/AuthProvider";
 import ProjectPop from "../components/AddProjectPop/ProjectPop";
 import RemoveProjectPop from "../components/AddProjectPop/RemoveProjectPop";
 
@@ -17,14 +12,11 @@ const ProjectsPage = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    newProject,
-    setNewProject,
     loading,
-    setLoading,
+
     showProjectPop,
     setShowProjectPop,
     showPopProjectRemove,
-    setShowPopProjectRemove,
   } = useAuthContext();
   // ===========================================================
   const showPopAddProjectBtn = () => {
@@ -32,9 +24,7 @@ const ProjectsPage = () => {
   };
   //===========================================================
 
-  useEffect(() => {
-    // console.log("bahaaaaaaaaaa");
-  }, [showProjectPop]);
+  useEffect(() => {}, [showProjectPop]);
 
   return (
     <>
@@ -44,7 +34,7 @@ const ProjectsPage = () => {
         <>
           <div className="add-project-div">
             <Link className="text-sky-600" to="/dashboard">
-              Projects 
+              Projects
             </Link>
             <button
               onClick={showPopAddProjectBtn}

@@ -11,17 +11,12 @@ const CompletedTask = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    setShowRemoveTaskPop,
-    allTasks,
-    setAllTasks,
+
     userData,
-    setUserData,
+ 
     allTasksCompleted,
     setAllTasksCompleted,
-    allTasksToDo,
-    setAllTasksToDo,
-    allTasksInProgress,
-    setAllTasksInProgress,
+
   } = useAuthContext();
 
   useEffect(() => {

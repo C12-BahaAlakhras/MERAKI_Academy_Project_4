@@ -1,9 +1,9 @@
-import React, { useState, useEffect, createContext } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { MdDelete } from "react-icons/md";
 import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthProvider";
-import RemoveTaskPop from "../components/PopForTickets/RemoveTaskPop";
+
 import "./user.css";
 import AddUserPop from "../components/PopForUsers/AddUserPop";
 import RemoveUserPop from "../components/PopForUsers/RemoveUserPop";
@@ -14,17 +14,7 @@ const Users = () => {
   const [isError, setIsError] = useState(false);
 
   const {
-    setShowRemoveTaskPop,
-    allTasks,
-    setAllTasks,
     userData,
-    setUserData,
-    allTasksCompleted,
-    setAllTasksCompleted,
-    allTasksToDo,
-    setAllTasksToDo,
-    allTasksInProgress,
-    setAllTasksInProgress,
     teamMembers,
     setTeamMembers,
     showAddUserPop,
@@ -35,7 +25,6 @@ const Users = () => {
 
   useEffect(() => {
     const userId = userData._id;
-    console.log("userId =======>", userId);
 
     axios
       .get(`http://localhost:5000/users/${userId}`)
@@ -56,9 +45,7 @@ const Users = () => {
   };
 
   const handleDelete = (id) => {
-    
-    console.log("Delete user with id:", id);
-    setShowRemoveUserPop(id)
+    setShowRemoveUserPop(id);
   };
 
   return (
@@ -83,7 +70,6 @@ const Users = () => {
             </tr>
           </thead>
           <tbody>
-            {console.log(teamMembers)}
             {teamMembers.map((user) => (
               <tr key={user._id} className="user-table-row">
                 <td>{user.fullName}</td>

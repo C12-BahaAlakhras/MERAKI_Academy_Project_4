@@ -10,32 +10,12 @@ const AddUserPop = () => {
   const [newUser, setNewUser] = useState({});
 
   const {
-    showProjectPop,
-    setShowProjectPop,
-    newProject,
-    setNewProject,
-    projects,
-    setProjects,
     userData,
     setUserData,
-    token,
-    setToken,
-    showAddTaskPop,
     setShowAddTaskPop,
-    showRemoveTaskPop,
-    setShowRemoveTaskPop,
-    projectID,
-    setProjectID,
-    targetProject,
-    setTargetProject,
-    tickets,
-    setTickets,
     teamMembers,
     setTeamMembers,
-    showAddUserPop,
     setShowAddUserPop,
-    showRemoveUserPop,
-    setShowRemoveUserPop,
   } = useAuthContext();
   // { fullName, position, email, password }
 
@@ -94,11 +74,6 @@ const AddUserPop = () => {
         setShowAddTaskPop(true);
       });
   };
-
-  //   useEffect(() => {
-  //     console.log("updated targetProject:", targetProject);
-  //     //   console.log("userData projects:", projects);
-  //   }, [targetProject]);
 
   return (
     <div className="project-pop">

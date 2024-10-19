@@ -1,14 +1,13 @@
 import React, { useState, useEffect } from "react";
 import "./projectPop.css";
 import { useAuthContext } from "../../contexts/AuthProvider";
-import Loading from "../Loading";
+
 import axios from "axios";
-// projectName, projectDescription, projectPriority
+
 const ProjectPop = () => {
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    showProjectPop,
     setShowProjectPop,
     newProject,
     setNewProject,
@@ -17,7 +16,6 @@ const ProjectPop = () => {
     userData,
     setUserData,
     token,
-    setToken,
   } = useAuthContext();
   const prjectNameValue = (e) => {
     setNewProject({ ...newProject, projectName: e.target.value });
@@ -32,9 +30,6 @@ const ProjectPop = () => {
     setShowProjectPop(false);
   };
   const createProjectbtn = () => {
-    console.log("userData._id", userData._id);
-    console.log("token", token);
-
     axios
       .post(`http://localhost:5000/project/${userData._id}`, newProject, {
         headers: {
@@ -42,7 +37,6 @@ const ProjectPop = () => {
         },
       })
       .then((res) => {
-        // console.log("create new project successfully:", res.data);
         setMessage(res.data.message);
         setIsError(false);
         //===============================
@@ -55,8 +49,7 @@ const ProjectPop = () => {
             boardProjects: [...userData.userBoard.boardProjects, newProjectId],
           },
         };
-        // setUserData(updatedUserData);
-        // // console.log(userData)
+
         setUserData(updatedUserData);
         localStorage.setItem("userData", JSON.stringify(updatedUserData));
         setProjects([...projects, res.data.newProject]);
@@ -67,17 +60,13 @@ const ProjectPop = () => {
         }, 500);
       })
       .catch((err) => {
-        console.log("create new project error:", err);
         setMessage(err.response.data.message);
         setIsError(true);
         setShowProjectPop(true);
       });
   };
 
-  useEffect(() => {
-    console.log("userData updated:", userData);
-    console.log("userData projects:", projects);
-  }, [userData]);
+  useEffect(() => {}, [userData]);
 
   return (
     <div className="project-pop">

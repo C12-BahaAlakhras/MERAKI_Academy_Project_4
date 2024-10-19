@@ -9,19 +9,15 @@ const Login = () => {
   const navagite = useNavigate();
 
   const {
-    token,
     setToken,
     userLogin,
     setUserLogin,
     darkMode,
-    setDarkMode,
-    userData,
+
     setUserData,
     IsLogin,
     setIsLogin,
-    IsRegister,
-    setIsRegister,
-    loading,
+
     setLoading,
   } = useAuthContext();
 
@@ -82,11 +78,10 @@ const Login = () => {
       setUserData(storedUserData ? JSON.parse(storedUserData) : null);
     }
   }, []);
-  // setTimeout(() => {}, 300);
+
   useEffect(() => {
-    // IsLogin = storedIsLogin;
     if (!IsLogin) return;
-    // setLoading(false);
+
     setTimeout(() => {
       navagite("/dashboard");
     }, 200);

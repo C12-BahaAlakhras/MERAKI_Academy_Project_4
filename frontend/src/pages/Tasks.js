@@ -1,28 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { MdDelete } from "react-icons/md";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuthContext } from "../contexts/AuthProvider";
-import RemoveTaskPop from "../components/PopForTickets/RemoveTaskPop";
 import "./Tasks.css";
 
 const Tasks = () => {
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
-  const {
-    projects,
-    token,
-    projectID,
-    tickets,
-    setTickets,
-    showRemoveTaskPop,
-    setShowRemoveTaskPop,
-    allTasks,
-    setAllTasks,
-    userData,
-    setUserData,
-  } = useAuthContext();
+  const { allTasks, setAllTasks, userData } = useAuthContext();
 
   useEffect(() => {
     const userId = userData._id;
@@ -35,17 +21,9 @@ const Tasks = () => {
 
         const allTasksArray = res.data.result;
 
-        // console.log("allTasksArray", allTasksArray);
-        // const storedAllTasks = localStorage.setItem("allTasks", allTasksArray);
-
         setAllTasks(allTasksArray);
 
-        // console.log(allTasks)
-        console.log("allTasks", allTasks);
-
-        //===============================
-
-        //================================
+        // console.log("allTasks", allTasks);
       })
       .catch((err) => {
         setMessage(err.response.data.message);
@@ -92,8 +70,6 @@ const Tasks = () => {
           </tbody>
         </table>
       </div>
-
-      {/* {showRemoveTaskPop ? <RemoveTaskPop /> : null} */}
     </>
   );
 };

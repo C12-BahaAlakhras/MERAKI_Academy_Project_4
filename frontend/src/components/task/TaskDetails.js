@@ -2,46 +2,35 @@ import React, { useState, useEffect } from "react";
 
 import axios from "axios";
 import { useAuthContext } from "../../contexts/AuthProvider";
-import { CgAdd } from "react-icons/cg";
+
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
 const TaskDetails = () => {
-  // const nameOfProject = () => {
-  //   const targetProject = projects.find((project) => {
-  //     return project._id === projectID;
-  //   });
-  //   return targetProject?.projectName;
-  // };
   const navigate = useNavigate();
   const [message, setMessage] = useState("");
   const [isError, setIsError] = useState(false);
   const {
-    projects,
     token,
     projectID,
     tickets,
     setTickets,
-    showRemoveTaskPop,
     setShowRemoveTaskPop,
     teamMembers,
-    setTeamMembers,
   } = useAuthContext();
 
   // ===========================================================
   const deleteTaskBtn = (taskID) => {
     setShowRemoveTaskPop(taskID);
-    console.log("from deleteTaskBtn taskID: ", taskID);
   };
   //===========================================================
 
   useEffect(() => {
     const projectId = projectID;
-    // console.log("test token ==>", token);
+
     axios
       .get(`http://localhost:5000/ticket/project/${projectId}`)
       .then((res) => {
-        console.log("arry of Tickets res.data.result ==>", res.data.result);
         setMessage(res.data.message);
         setIsError(false);
         setTickets(res.data.result);
@@ -83,7 +72,6 @@ const TaskDetails = () => {
       {/* <h1>{nameOfProject()}</h1> */}
       <>
         {tickets.map((task) => {
-          //   console.log("tickets", tickets);
           return (
             <div className="max-w-sm rounded-lg overflow-hidden shadow-lg p-4 bg-white border border-gray-200">
               <h2 className="text-xl font-semibold mb-2 border-b pb-2">
@@ -91,7 +79,7 @@ const TaskDetails = () => {
               </h2>
               <p className="text-gray-700 mb-2 border-b pb-2">
                 {task.ticketDescription}
-                {/* {console.log("task.ticketDescription", task.ticketDescription)} */}
+                
               </p>
               <p
                 className={`text-sm font-bold mb-4 ${
@@ -138,7 +126,6 @@ const TaskDetails = () => {
                     </p>
                   )}
                 </div>
-             
               </div>
 
               <div className="flex justify-between mt-10">

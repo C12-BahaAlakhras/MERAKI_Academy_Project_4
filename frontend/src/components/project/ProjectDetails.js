@@ -1,8 +1,7 @@
-import React, { useState, useEffect, createContext, useContext } from "react";
+import React, { useState, useEffect } from "react";
 import "./projectCard.css";
 import axios from "axios";
 import { useAuthContext } from "../../contexts/AuthProvider";
-import { CgAdd } from "react-icons/cg";
 import { MdDelete } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
 
@@ -13,22 +12,16 @@ const ProjectDetails = () => {
 
   const {
     userData,
-    setUserData,
     projects,
     setProjects,
-    showPopProjectRemove,
     setShowPopProjectRemove,
     token,
-    setToken,
-    projectID,
     setProjectID,
-    teamMembers,
-    setTeamMembers,
   } = useAuthContext();
   // ===========================================================
   const deleteProjectBtn = (idProject) => {
     setShowPopProjectRemove(idProject);
-    console.log("from PD idProject: ", idProject);
+    // console.log("from PD idProject: ", idProject);
   };
   //===========================================================
 
@@ -40,11 +33,10 @@ const ProjectDetails = () => {
 
   useEffect(() => {
     const userId = userData._id;
-    console.log("test token ==>", token);
+
     axios
       .get(`http://localhost:5000/project/all/${userId}`)
       .then((res) => {
-        console.log("arry of projects res.data.result ==>", res.data.result);
         setMessage(res.data.message);
         setIsError(false);
         setProjects(res.data.result);
@@ -107,32 +99,3 @@ const ProjectDetails = () => {
 };
 
 export default ProjectDetails;
-
-{
-  /* <div className="mb-4 flex items-center justify-between border-t border-b border-gray-200 py-3">
-              <div className="flex items-center">
-                {userData.userBoard?.boardMembers?.length > 0 ? (
-                  teamMembers.map((user, index) => (
-                    <div
-                      key={index}
-                      className="flex items-center mr-1 rounded-full"
-                      style={{ backgroundColor: "#1b1aff" }}
-                    >
-                      <div className="w-8 h-8 flex items-center justify-center rounded-full text-white font-bold">
-                        {user.fullName.charAt(0).toUpperCase()}
-                      
-                        </div>
-                        </div>
-                      ))
-                    ) : (
-                      <p className="text-gray-500 text-sm">
-                        No Team assigned to this project
-                      </p>
-                    )}
-                  </div>
-           
-                  <button className="flex items-center text-blue-500  ml-2 ">
-                    <CgAdd className="text-lg" />
-                  </button>
-                </div> */
-}
