@@ -1,13 +1,12 @@
-import React, { useContext, useEffect } from "react";
+import React from "react";
 import {
   MdDashboard,
   MdOutlinePendingActions,
   MdTaskAlt,
   MdLogout,
 } from "react-icons/md";
-import { FaTasks, FaTrashAlt, FaUsers } from "react-icons/fa";
-import { Link, NavLink, useNavigate } from "react-router-dom";
-
+import { FaTasks, FaUsers } from "react-icons/fa";
+import { Link, NavLink } from "react-router-dom";
 import { useAuthContext } from "../../contexts/AuthProvider";
 
 const linkData = [
@@ -20,29 +19,21 @@ const linkData = [
     icon: <MdOutlinePendingActions />,
   },
   { label: "To Do", link: "todo", icon: <MdOutlinePendingActions /> },
-  { label: "Team", link: "team", icon: <FaUsers /> },
-  //   { label: "Trash", link: "trashed", icon: <FaTrashAlt /> },
+  // Team link will be conditionally rendered based on user role
 ];
 
 const SlideBar = () => {
-  const navagite = useNavigate();
+  const { IsLogin, setIsLogin, userData } = useAuthContext();
 
-  const { IsLogin, setIsLogin } = useAuthContext();
   const logoutBtn = () => {
     localStorage.clear();
     setIsLogin(false);
   };
 
-  // useEffect(() => {
-  //   if (IsLogin) return;
-
-  //   navagite("/login");
-  // }, [IsLogin]);
-
   return (
     <div className="h-hero bg-gray-100 p-4">
-      <div className="h-full flex flex-col gap-6 p-4  bg-white rounded-lg">
-        <div className="flex-1 flex flex-col gap-y-5 ">
+      <div className="h-full flex flex-col gap-6 p-4 bg-white rounded-lg">
+        <div className="flex-1 flex flex-col gap-y-5">
           {linkData.map(({ label, link, icon }) => (
             <NavLink
               to={link}
@@ -53,12 +44,24 @@ const SlideBar = () => {
               <span>{label}</span>
             </NavLink>
           ))}
+
+          {/* Conditionally render the "Team" link based on user role */}
+          {userData.role?.role === "ADMIN" && (
+            <NavLink
+              to="team"
+              className="flex items-center gap-2 p-2 rounded-md text-slate-900 hover:bg-primary hover:text-white active:bg-primary active:text-white"
+            >
+              <FaUsers />
+              <span>Team</span>
+            </NavLink>
+          )}
         </div>
-        <Link to={"/login"}>
+
+        <Link to="/login">
           <div>
             <button
               onClick={logoutBtn}
-              className="w-full flex gap-2 p-2 items-center text-lg  p-2 rounded-md text-slate-900 hover:bg-primary hover:text-white text-gray-800"
+              className="w-full flex gap-2 p-2 items-center text-lg p-2 rounded-md text-slate-900 hover:bg-primary hover:text-white text-gray-800"
             >
               <MdLogout />
               <span>Logout</span>
